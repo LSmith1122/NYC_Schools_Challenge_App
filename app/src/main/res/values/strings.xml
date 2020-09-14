@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">NYC Schools Challenge App</string>
+
+    <!--region Main Activity-->
+    <string name="main_activity_title">NYC Schools Lookup</string>
+    <string name="main_activity_search_text_description">Search by School Name</string>
+    <string name="search_by_name_radio_text">@string/main_activity_search_text_description</string>
+    <string name="search_by_filter_radio_text">Search by Filter</string>
+    <string name="sort_by_description">Sort By:</string>
+    <string name="filter_by_description">Filter By:</string>
+    <string name="min_limit_description">Min. Limit:</string>
+    <string name="result_count">No. of Results</string>
+    <string name="search">Search</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--endregion-->
+
+    <!--region Results Activity-->
+
+    <!--endregion-->
+
+    <!--region Details Activity-->
+
+    <!--endregion-->
+
+</resources>
