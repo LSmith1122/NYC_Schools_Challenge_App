@@ -1,25 +1,49 @@
 <resources>
-    <string name="app_name">NYC Schools Challenge App</string>
+    <string name="app_name">NYC Schools App</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="ok">OK</string>
+    <string name="search">Search</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="exit_app">Are you sure you want to exit the application?</string>
+    <string name="error_unknown_error">An unknown error has occurred. Please try again.</string>
 
-    <!--region Main Activity-->
+    <!--region Main Activity / Search Options-->
     <string name="main_activity_title">NYC Schools Lookup</string>
     <string name="main_activity_search_text_description">Search by School Name</string>
+    <string name="main_activity_error_missing_name_criteria">Please provide a School Name for query.</string>
+    <string name="main_activity_error_missing_filter_criteria">Please provide a filter for query.</string>
     <string name="search_by_name_radio_text">@string/main_activity_search_text_description</string>
     <string name="search_by_filter_radio_text">Search by Filter</string>
     <string name="sort_by_description">Sort By:</string>
     <string name="filter_by_description">Filter By:</string>
     <string name="min_limit_description">Min. Limit:</string>
     <string name="result_count">No. of Results</string>
-    <string name="search">Search</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="sort_by_items_school_desc">School Name (A-Z)</string>
+    <string name="sort_by_items_school_asc">School Name (Z-A)</string>
+    <string name="sort_by_items_city_desc">City (A-Z)</string>
+    <string name="sort_by_items_city_asc">City (Z-A)</string>
+    <string name="sort_by_items_graduation_rate_desc">Graduation Rate (descend)</string>
+    <string name="sort_by_items_graduation_rate_asc">Graduation Rate (ascend)</string>
+
+    <string name="filter_by_items_city">City</string>
+    <string name="filter_by_items_academics">Academics</string>
+    <string name="filter_by_items_sports">Sports</string>
+
+    <string name="limit_by_items_graduation_rate_min">Graduation Rate (Min.)</string>
+    <string name="limit_by_items_graduation_rate_max">Graduation Rate (Max.)</string>
+    <string name="limit_by_items_total_students_min">Total Students (Min.)</string>
+    <string name="limit_by_items_total_students_max">Total Students (Max.)</string>
+    <string name="unlimited">Unlimited</string>
     <!--endregion-->
 
-    <!--region Results Activity-->
-
+    <!--region Results-->
+    <string name="results_fragment_title">Results</string>
     <!--endregion-->
 
-    <!--region Details Activity-->
+    <!--region Details-->
+    <string name="details_fragment_title">School Details</string>
 
     <!--endregion-->
 

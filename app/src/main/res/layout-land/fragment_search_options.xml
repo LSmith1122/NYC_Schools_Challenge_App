@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".view.fragments.SearchOptionsFragment">
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_activity_title"
+        android:textSize="@dimen/main_activity_title_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ScrollView
+        android:id="@+id/main_content_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_search_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RadioGroup
+                android:id="@+id/main_activity_search_by_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/main_activity_search_by_radio_group_margin_top"
+                android:layout_marginBottom="@dimen/main_activity_search_by_radio_group_margin_bottom">
+
+                <RadioButton
+                    android:id="@+id/main_activity_search_by_name_radio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_by_name_radio_text" />
+
+                <RadioButton
+                    android:id="@+id/main_activity_search_by_filter_radio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/search_by_filter_radio_text" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/main_content_search_by_name_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/main_activity_title_margin"
+                    android:text="@string/main_activity_search_text_description" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/main_search_by_name_edittext"
+                    style="@style/EditText.Search" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/main_content_search_by_filter_group"
+                style="@style/SearchOption.Group"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/main_activity_filter_result_count_group"
+                    style="@style/SpinnerGroup.Horizontal">
+
+                    <TextView
+                        style="@style/SpinnerDescription"
+                        android:text="@string/result_count" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/main_activity_filter_result_count_dropdown"
+                        style="@style/Spinner" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/main_activity_filter_sort_by_group"
+                    style="@style/SpinnerGroup.Horizontal"
+                    android:layout_marginTop="@dimen/small_margin">
+
+                    <TextView
+                        style="@style/SpinnerDescription"
+                        android:text="@string/sort_by_description" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/main_activity_filter_sort_by_dropdown"
+                        style="@style/Spinner" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/main_activity_filter_filter_by_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin">
+
+                    <TextView
+                        android:id="@+id/main_activity_spinner_description_filter_by_header"
+                        style="@style/SpinnerDescription"
+                        android:text="@string/filter_by_description"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/main_activity_filter_filter_by_dropdown"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/main_activity_filter_filter_by_dropdown"
+                        style="@style/Spinner"
+                        android:layout_width="0dp"
+                        app:layout_constraintLeft_toRightOf="@+id/main_activity_spinner_description_filter_by_header"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/main_activity_filter_filter_by_edittext"
+                        style="@style/EditText.SearchOption.Done"
+                        android:inputType="text|textAutoCorrect"
+                        app:layout_constraintLeft_toLeftOf="@+id/main_activity_filter_filter_by_dropdown"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/main_activity_filter_filter_by_dropdown"
+                        tools:hint="25%" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin">
+
+                    <TextView
+                        android:id="@+id/main_activity_spinner_description_limit_by"
+                        style="@style/SpinnerDescription"
+                        android:text="@string/min_limit_description"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/main_activity_filter_limit_by_dropdown"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/main_activity_filter_limit_by_dropdown"
+                        style="@style/Spinner"
+                        android:layout_width="0dp"
+                        app:layout_constraintLeft_toRightOf="@+id/main_activity_spinner_description_limit_by"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/main_activity_filter_limit_by_edittext"
+                        style="@style/EditText.SearchOption.Search"
+                        android:inputType="numberDecimal"
+                        app:layout_constraintLeft_toLeftOf="@+id/main_activity_filter_limit_by_dropdown"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/main_activity_filter_limit_by_dropdown"
+                        tools:hint="25%" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/main_search_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

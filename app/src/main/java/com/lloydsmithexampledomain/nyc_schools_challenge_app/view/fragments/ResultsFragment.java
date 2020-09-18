@@ -2,7 +2,8 @@ package com.lloydsmithexampledomain.nyc_schools_challenge_app.view.fragments;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,39 +11,106 @@ import android.view.ViewGroup;
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.R;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.databinding.FragmentResultsBinding;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.SearchParams;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchPresenter;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.adapters.SchoolResultsAdapter;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchParams;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.callbacks.ISearchListener;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.components.DaggerSearchPresenterComponent;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.contracts.IResultsFragmentView;
 
-public class ResultsFragment extends Fragment {
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+import java.util.Locale;
+
+import javax.inject.Inject;
+
+public class ResultsFragment extends BaseFragment implements IResultsFragmentView {
+
+    private static final String TAG = "ResultsFragment";
     private static final String ARG_SEARCH_PARAMS = "arg_search_params";
-    private SearchParams mSearchParams;
     private FragmentResultsBinding mBinding;
+    private ISearchListener mListener;
+    private ISearchParams mSearchParams;
 
-    public ResultsFragment() {
-        // Required empty public constructor
+    @Inject
+    ISearchPresenter mSearchPresenter;
+
+    public ResultsFragment() {}
+
+    public static ResultsFragment newInstance(ISearchParams searchParams, ISearchListener listener) {
+        Bundle bundle = new Bundle();
+        ResultsFragment fragment = new ResultsFragment();
+        bundle.putSerializable(ARG_SEARCH_PARAMS, searchParams);
+        fragment.setArguments(bundle);
+        fragment.setSearchListener(listener);
+        return fragment;
     }
 
-    public static ResultsFragment newInstance(SearchParams searchParams) {
-        ResultsFragment fragment = new ResultsFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_SEARCH_PARAMS, searchParams);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public void updateResults(ISearchParams searchParams) {
+        showProgressDialog();
+        mSearchParams = searchParams;
+        mSearchPresenter.searchForSchools(mSearchParams);
+    }
+
+    @Override
+    public void onSchoolSearchComplete(List<ISchoolData> schoolDataList) {
+        hideDialog();
+        if (schoolDataList.isEmpty()) {
+            showInformationalDialog(getString(R.string.error_unknown_error));
+            return;
+        }
+        SchoolResultsAdapter adapter = new SchoolResultsAdapter(getContext(), schoolDataList);
+        adapter.setItemClickListener(schoolData -> {
+            showProgressDialog();
+            mSearchPresenter.searchForACTData(schoolData.getDbn());
+        });
+        mBinding.resultsRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        mBinding.resultsRecyclerview.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSATDetailsSearchComplete(ISchoolData completeSchoolData) {
+        hideDialog();
+        if (mListener != null) {
+            mListener.onCompleteDetailsRetrieved(completeSchoolData);
+        }
+    }
+
+    @Override
+    public void onSearchError(String errorMessage, int httpCode) {
+        if (StringUtils.isBlank(errorMessage)) {
+            errorMessage = getString(R.string.error_unknown_error);
+        }
+        showInformationalDialog(String.format(Locale.getDefault(), "%s\n\nResponse Code: %d", errorMessage, httpCode));
+    }
+
+    @Override
+    public void setSearchListener(ISearchListener searchListener) {
+        this.mListener = searchListener;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mSearchParams = (SearchParams) getArguments().getSerializable(ARG_SEARCH_PARAMS);
+        DaggerSearchPresenterComponent.builder().build().inject(this);
+        mSearchPresenter.setResultsFragmentView(this);
+        if (getArguments() != null && getArguments().containsKey(ARG_SEARCH_PARAMS)) {
+            this.mSearchParams = (ISearchParams) getArguments().getSerializable(ARG_SEARCH_PARAMS);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBinding = FragmentResultsBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateResults(mSearchParams);
     }
 }

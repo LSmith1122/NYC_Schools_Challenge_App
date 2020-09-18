@@ -7,6 +7,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SearchOption"/>
+
+    <style name="SearchOption.Group" parent="SearchOption">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/main_activity_search_options_group_margin_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/main_activity_search_options_group_margin_horizontal</item>
+        <item name="android:layout_marginStart">@dimen/main_activity_search_options_group_margin_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/main_activity_search_options_group_margin_horizontal</item>
+    </style>
+
     <style name="SpinnerGroup"/>
 
     <style name="SpinnerGroup.Horizontal" parent="SpinnerGroup">
@@ -31,9 +42,29 @@
     <style name="EditText" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="EditText.Done" parent="EditText">
+        <item name="android:imeOptions">actionDone</item>
     </style>
 
     <style name="EditText.Search" parent="EditText">
+        <item name="android:imeOptions">actionSearch</item>
+    </style>
+
+    <style name="EditText.SearchOption" parent="EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:maxLines">1</item>\
+    </style>
+
+    <style name="EditText.SearchOption.Done" parent="EditText.SearchOption">
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
+    <style name="EditText.SearchOption.Search" parent="EditText.SearchOption">
         <item name="android:imeOptions">actionSearch</item>
     </style>
 

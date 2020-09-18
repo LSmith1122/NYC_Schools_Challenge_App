@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="main_activity_title_margin">16dp</dimen>
+    <dimen name="main_activity_search_by_radio_group_margin_top">8dp</dimen>
+    <dimen name="main_activity_search_by_radio_group_margin_bottom">32dp</dimen>
+    <dimen name="main_activity_title_text_size">26sp</dimen>
     <dimen name="main_activity_panel_distance">16dp</dimen>
+    <dimen name="spinner_description_margin_right">4dp</dimen>
+    <dimen name="main_activity_search_options_group_margin_horizontal">8dp</dimen>
+    <dimen name="results_viewholder_school_name_text_size">22sp</dimen>
+    <dimen name="viewholder_parent_padding_default">8dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="normal_margin">16dp</dimen>
+    <dimen name="large_margin">32dp</dimen>
+    <dimen name="smallest_margin">4dp</dimen>
+    <dimen name="viewholder_school_overview_short_text_size">16sp</dimen>
+    <dimen name="results_viewholder_stats_text_size">20sp</dimen>
+    <dimen name="query_text_max_character_length">20</dimen>
+    <dimen name="details_viewholder_item_header_text_size">18sp</dimen>
+    <dimen name="details_viewholder_item_content_text_size">18sp</dimen>
+    <integer-array name="result_max_count">
+        <item>-1</item> <!--Unlimited-->
+        <item>5</item>
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+        <item>250</item>
+    </integer-array>
 </resources>

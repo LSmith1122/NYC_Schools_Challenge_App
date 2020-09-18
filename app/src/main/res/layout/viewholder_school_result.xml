@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/viewholder_parent_padding_default"
+    android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/results_viewholder_top_content_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/results_viewholder_school_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="75"
+            android:maxLines="2"
+            android:paddingBottom="@dimen/small_margin"
+            android:textSize="@dimen/results_viewholder_school_name_text_size"
+            tools:ignore="RtlSymmetry"
+            tools:text="Henry Ford Academy College Prepatory High School"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/results_viewholder_stats_rating"/>
+
+        <TextView
+            android:id="@+id/results_viewholder_stats_rating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="25"
+            android:textSize="@dimen/results_viewholder_stats_text_size"
+            android:gravity="top|center_horizontal"
+            tools:text="GR: 85%\nSS: 90%"
+            android:paddingStart="@dimen/small_margin"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/results_viewholder_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textSize="@dimen/viewholder_school_overview_short_text_size"
+        tools:text="Mountain View, CA 94043"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_dark"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@+id/results_viewholder_top_content_group"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
