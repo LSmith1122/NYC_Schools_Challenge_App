@@ -274,6 +274,9 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
 
         // Launch Results Fragment by signaling the Activity
         if (populateSearchOptions(true)) {
+            if (getActivity() instanceof BaseActivity) {
+                hideKeyboard((BaseActivity) getActivity());
+            }
             mListener.onSearch(mSearchParams);
         }
     }

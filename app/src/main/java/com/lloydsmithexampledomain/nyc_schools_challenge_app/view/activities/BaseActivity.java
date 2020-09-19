@@ -21,6 +21,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showInformationalDialog(String message) {
+        showInformationalDialog(message, null);
+    }
+
+    public void showInformationalDialog(String message, DialogInterface.OnClickListener neutral) {
         mDialog = createInformationalDialog(message, false).create();
         if (mDialog != null) {
             mDialog.show();
@@ -35,6 +39,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                                                          boolean isCancelable,
                                                          DialogInterface.OnClickListener positive,
                                                          DialogInterface.OnClickListener negative) {
+        return createInformationalDialog(message, isCancelable, positive, null, negative);
+    }
+
+    public AlertDialog.Builder createInformationalDialog(String message,
+                                                         boolean isCancelable,
+                                                         DialogInterface.OnClickListener positive,
+                                                         DialogInterface.OnClickListener neutral,
+                                                         DialogInterface.OnClickListener negative) {
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.dismiss();
         }
@@ -47,13 +59,22 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setCancelable(isCancelable);
 
         if (positive != null) {
-            builder.setPositiveButton(getString(R.string.yes), positive);
+            builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+                positive.onClick(dialog, which);
+                dialog.dismiss();
+            });
         }
         if (negative != null) {
-            builder.setNegativeButton(getString(R.string.no), negative);
+            builder.setNegativeButton(getString(R.string.no), (dialog, which) -> {
+                negative.onClick(dialog, which);
+                dialog.dismiss();
+            });
         }
-        if (positive == null && negative == null) {
-            builder.setNeutralButton(R.string.ok, (dialog, which) -> dialog.dismiss());
+        if (neutral != null) {
+            builder.setNeutralButton(R.string.ok, (dialog, which) -> {
+                neutral.onClick(dialog, which);
+                dialog.dismiss();
+            });
         }
         return builder;
     }

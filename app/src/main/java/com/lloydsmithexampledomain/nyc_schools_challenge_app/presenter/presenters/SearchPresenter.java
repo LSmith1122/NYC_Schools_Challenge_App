@@ -1,6 +1,9 @@
 package com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.presenters;
 
+//import com.lloydsmithexampledomain.nyc_schools_challenge_app.di.components.DaggerSearchServiceComponent;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.di.components.DaggerSearchServiceComponent;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.interfaces.contracts.ISchoolDataCallback;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.interfaces.contracts.ISchoolDataService;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.services.SchoolDataService;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISATData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
@@ -23,13 +26,46 @@ public class SearchPresenter implements ISearchPresenter {
     @Inject
     SchoolDataService mSchoolService;
 
-    private IResultsFragmentView mResultsFragmentView;
-    private ISearchParams mSearchParams;
-    private List<ISchoolData> mCachedSchoolData = new ArrayList<>();
-    private volatile LinkedHashMap<String, ISATData> mCachedSATData = new LinkedHashMap<>(); // dbn, ISATData
+    protected IResultsFragmentView mResultsFragmentView;
+    protected ISearchParams mSearchParams;
+    protected List<ISchoolData> mCachedSchoolData = new ArrayList<>();
+    protected volatile LinkedHashMap<String, ISATData> mCachedSATData = new LinkedHashMap<>(); // dbn, ISATData
+    protected ISchoolDataCallback<List<ISchoolData>> getAllSchoolsCallback = new ISchoolDataCallback<List<ISchoolData>>() {
+        @Override
+        public void onSuccess(List<ISchoolData> schoolDataList, int httpResponseCode) {
+            mCachedSchoolData = schoolDataList;
+            processAndDeliverSchoolData();
+        }
+
+        @Override
+        public void onError(int httpResponseCode, Throwable throwable) {
+            mResultsFragmentView.onSearchError(null, httpResponseCode);
+        }
+    };
+    protected ISchoolDataCallback<ISATData> mSearchForACTDataCallback = new ISchoolDataCallback<ISATData>() {
+        @Override
+        public void onSuccess(ISATData satData, int httpResponseCode) {
+            if (satData != null && satData.getDbn() != null
+                    && satData.getSatMathAvgScore() != null
+                    && satData.getSatReadingAvgScore() != null
+                    && satData.getSatWritingAvgScore() != null) {
+                mCachedSATData.put(satData.getDbn(), satData);
+            }
+            processAndDeliverSchoolData(satData);
+        }
+
+        @Override
+        public void onError(int httpResponseCode, Throwable throwable) {
+            mResultsFragmentView.onSearchError(null, httpResponseCode);
+        }
+    };
 
     @Inject
-    public SearchPresenter() {}
+    public SearchPresenter() {
+        DaggerSearchServiceComponent.builder()
+                .build()
+                .inject(this);
+    }
 
     private void processAndDeliverSchoolData() {
         List<ISchoolData> filteredList;
@@ -43,7 +79,7 @@ public class SearchPresenter implements ISearchPresenter {
 
     private void processAndDeliverSchoolData(ISATData actDataForDbn) {
         if (actDataForDbn == null) {
-            mResultsFragmentView.onSearchError("", -1);
+            mResultsFragmentView.onSearchError(null, -1);
             return;
         }
 
@@ -71,19 +107,7 @@ public class SearchPresenter implements ISearchPresenter {
         this.mSearchParams = searchParams;
         if (mResultsFragmentView != null) {
             if (mCachedSchoolData == null || mCachedSchoolData.isEmpty()) {
-                ISchoolDataCallback<List<ISchoolData>> callback = new ISchoolDataCallback<List<ISchoolData>>() {
-                    @Override
-                    public void onSuccess(List<ISchoolData> schoolDataList, int httpResponseCode) {
-                        mCachedSchoolData = schoolDataList;
-                        processAndDeliverSchoolData();
-                    }
-
-                    @Override
-                    public void onError(int httpResponseCode, Throwable throwable) {
-                        mResultsFragmentView.onSearchError(null, httpResponseCode);
-                    }
-                };
-                mSchoolService.getAllSchools(callback);
+                mSchoolService.getAllSchools(getAllSchoolsCallback);
             } else {
                 processAndDeliverSchoolData();
             }
@@ -97,28 +121,10 @@ public class SearchPresenter implements ISearchPresenter {
             return;
         }
 
-        ISATData actDataForDbn;
         if (!mCachedSATData.containsKey(dbn)) {
-            ISchoolDataCallback<ISATData> callback = new ISchoolDataCallback<ISATData>() {
-                @Override
-                public void onSuccess(ISATData satData, int httpResponseCode) {
-                    if (satData != null && satData.getDbn() != null
-                            && satData.getSatMathAvgScore() != null
-                            && satData.getSatReadingAvgScore() != null
-                            && satData.getSatWritingAvgScore() != null) {
-                        mCachedSATData.put(dbn, satData);
-                    }
-                    processAndDeliverSchoolData(satData);
-                }
-
-                @Override
-                public void onError(int httpResponseCode, Throwable throwable) {
-                    mResultsFragmentView.onSearchError(null, httpResponseCode);
-                }
-            };
-            mSchoolService.getACTDataForDbn(dbn, callback);
+            mSchoolService.getACTDataForDbn(dbn, mSearchForACTDataCallback);
         } else {
-            actDataForDbn = mCachedSATData.get(dbn);
+            ISATData actDataForDbn = mCachedSATData.get(dbn);
             processAndDeliverSchoolData(actDataForDbn);
         }
     }

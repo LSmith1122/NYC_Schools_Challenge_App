@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.R;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.di.components.DaggerSearchPresenterComponent;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchParams;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchPresenter;
@@ -13,7 +14,6 @@ import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.fragments.Deta
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.fragments.ResultsFragment;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.fragments.SearchOptionsFragment;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.callbacks.ISearchListener;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.components.DaggerSearchPresenterComponent;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.contracts.ISearchView;
 
 import javax.inject.Inject;

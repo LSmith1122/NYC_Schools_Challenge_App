@@ -1,4 +1,4 @@
-package com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.modules;
+package com.lloydsmithexampledomain.nyc_schools_challenge_app.di.modules;
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchPresenter;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.presenters.SearchPresenter;
