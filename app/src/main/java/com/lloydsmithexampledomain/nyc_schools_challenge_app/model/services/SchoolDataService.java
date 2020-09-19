@@ -24,13 +24,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SchoolDirectoryService implements ISchoolDataService {
+public class SchoolDataService implements ISchoolDataService {
 
     private static final String TAG = "SchoolDirectoryService";
     private List<Call<?>> mCallCache = new ArrayList<>();
 
     @Inject
-    public SchoolDirectoryService() {}
+    public SchoolDataService() {}
 
     @Override
     public void getAllSchools(final ISchoolDataCallback<List<ISchoolData>> callback) {
@@ -71,18 +71,18 @@ public class SchoolDirectoryService implements ISchoolDataService {
         Retrofit retrofit = getRetrofit();
 
         ISchoolDirectoryService schoolDirectoryService = retrofit.create(ISchoolDirectoryService.class);
-        Call<SATData> call = schoolDirectoryService.getSATDataForSchoolDbn(dbn);
+        Call<List<SATData>> call = schoolDirectoryService.getSATDataForSchoolDbn(dbn);
 
         // Adding to cached collection - just in case if there is a need to cancel the call prematurely
         mCallCache.add(call);
 
         // Asynchronous call
-        call.enqueue(new Callback<SATData>() {
+        call.enqueue(new Callback<List<SATData>>() {
             @Override
-            public void onResponse(@NonNull Call<SATData> call, @NonNull Response<SATData> response) {
+            public void onResponse(@NonNull Call<List<SATData>> call, @NonNull Response<List<SATData>> response) {
                 mCallCache.remove(call);
-                if (response.isSuccessful() && response.body() != null) {
-                    callback.onSuccess(response.body(), response.code());
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    callback.onSuccess(response.body().get(0), response.code());
                 } else {
                     NullPointerException throwable = new NullPointerException("Null response or body.");
                     Log.e(TAG, "onResponse: getACTDataForDbn", throwable);
@@ -91,7 +91,7 @@ public class SchoolDirectoryService implements ISchoolDataService {
             }
 
             @Override
-            public void onFailure(@NonNull Call<SATData> call, @NonNull Throwable throwable) {
+            public void onFailure(@NonNull Call<List<SATData>> call, @NonNull Throwable throwable) {
                 mCallCache.remove(call);
                 Log.e(TAG, "onFailure: getACTDataForDbn", throwable);
                 callback.onError(500, throwable);

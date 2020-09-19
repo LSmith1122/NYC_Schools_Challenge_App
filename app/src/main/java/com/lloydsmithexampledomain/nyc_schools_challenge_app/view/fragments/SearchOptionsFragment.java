@@ -16,7 +16,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.R;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.databinding.FragmentResultsBinding;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.databinding.FragmentSearchOptionsBinding;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.models.SearchParams;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.FilterByOption;
@@ -29,9 +28,6 @@ import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.cal
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Objects;
 
 public class SearchOptionsFragment extends BaseFragment implements ISearchOptionsFragmentView {
@@ -162,7 +158,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
                 if (mSearchParams == null) {
                     return;
                 }
-                if (position < 0) {
+                if (position == 0 && items != mResultsMaxCountItems || position < 0) {
                     mSearchParams.setResultMaxCount(null);
                     mSearchParams.setSortByOption(null);
                     mSearchParams.setFilterByOption(null);
@@ -174,11 +170,11 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
                     int item = position == 0 ? -1 : Integer.parseInt(mResultsMaxCountItems[position]);
                     mSearchParams.setResultMaxCount(item);
                 } else if (items == mSortByItems) {
-                    mSearchParams.setSortByOption(SortByOption.values()[position]);
+                    mSearchParams.setSortByOption(SortByOption.values()[position - 1]);
                 } else if (items == mFilterByItems) {
-                    mSearchParams.setFilterByOption(FilterByOption.values()[position]);
+                    mSearchParams.setFilterByOption(FilterByOption.values()[position - 1]);
                 } else if (items == mLimitByItems) {
-                    mSearchParams.setLimitByOption(LimitTypeOption.values()[position]);
+                    mSearchParams.setLimitByOption(LimitTypeOption.values()[position - 1]);
                 }
             }
 
@@ -204,7 +200,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
 
     boolean populateSearchOptions(boolean showError) {
         if (mSearchParams == null) {
-            showInformationalDialog(getString(R.string.error_unknown_error));
+            showInformationalDialog(getString(R.string.error_unexpected_error));
             return false;
         }
         if (mSearchParams.getSearchTypeOption() == SearchTypeOption.SEARCH_BY_NAME) {
@@ -226,19 +222,19 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
                 boolean isDataAvailable = false;
                 SortByOption sortByOption = null;
                 if (sortByPosition > 0) {
-                    sortByOption = SortByOption.values()[sortByPosition];
+                    sortByOption = SortByOption.values()[sortByPosition - 1];
                     isDataAvailable = true;
                 }
 
                 FilterByOption filterByOption = null;
                 if (filterByPosition > 0) {
-                    filterByOption = FilterByOption.values()[filterByPosition];
+                    filterByOption = FilterByOption.values()[filterByPosition - 1];
                     isDataAvailable = true;
                 }
 
                 LimitTypeOption limitByOption = null;
                 if (limitByPosition > 0) {
-                    limitByOption = LimitTypeOption.values()[limitByPosition];
+                    limitByOption = LimitTypeOption.values()[limitByPosition - 1];
                     isDataAvailable = true;
                 }
 

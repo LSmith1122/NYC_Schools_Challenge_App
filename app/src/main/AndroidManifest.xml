@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.activities.MainActivity">
+            android:name=".view.activities.MainActivity"
+            android:screenOrientation="portrait"> <!--Setting this to portrait due to time constraints - this will be updated later after utilizing ViewModels-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

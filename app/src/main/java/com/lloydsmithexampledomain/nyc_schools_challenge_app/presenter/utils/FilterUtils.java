@@ -28,7 +28,7 @@ public final class FilterUtils {
             return null;
         }
 
-        sortBySchoolNameAlphabetically(list, true);
+        sortBySchoolNameAlphabetically(list, false);
 
         return list;
     }
@@ -46,20 +46,25 @@ public final class FilterUtils {
 
         for (ISchoolData schoolData : schoolDataList) {
             boolean hasFilters = false;
-            if (searchParams.getResultMaxCount() != null && searchParams.getResultMaxCount() >= list.size()) {
+            Integer resultMaxCount = searchParams.getResultMaxCount();
+            if (resultMaxCount != null && resultMaxCount <= list.size()) {
                 break;
             }
-            if (searchParams.getLimitByOption() != null) {
-                hasFilters = true;
-                limitSchoolData(searchParams, list, schoolData);
-            }
-            if (searchParams.getFilterByOption() != null) {
-                hasFilters = true;
-                filterSchoolData(searchParams, list, schoolData);
-            }
+            if (searchParams.getLimitByOption() == null && searchParams.getFilterByOption() == null && resultMaxCount != null) {
+                list.add(schoolData);
+            } else {
+                if (searchParams.getLimitByOption() != null) {
+                    hasFilters = true;
+                    limitSchoolData(searchParams, list, schoolData);
+                }
+                if (searchParams.getFilterByOption() != null) {
+                    hasFilters = true;
+                    filterSchoolData(searchParams, list, schoolData);
+                }
 
-            if (!hasFilters) {
-                break;
+                if (!hasFilters) {
+                    break;
+                }
             }
         }
 
@@ -74,24 +79,38 @@ public final class FilterUtils {
     }
 
     private static void limitSchoolData(ISearchParams searchParams, List<ISchoolData> list, ISchoolData schoolData) {
+        Double graduationRatePercentage = schoolData.getGraduationRatePercentage();
+        Integer totalStudents = schoolData.getTotalStudents();
         switch (searchParams.getLimitByOption()) {
             case GRADUATION_RATE_MIN:
+                if (graduationRatePercentage == null) {
+                    return;
+                }
                 int queryAmountMin = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                double dataMin = Math.floor(schoolData.getGraduationRatePercentage() * 100);
+                double dataMin = Math.floor(graduationRatePercentage * 100);
                 limitSchoolDataByAmount(list, schoolData, dataMin, queryAmountMin, true);
                 break;
             case GRADUATION_RATE_MAX:
+                if (graduationRatePercentage == null) {
+                    return;
+                }
                 int queryAmountMax = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                double dataMax = Math.floor(schoolData.getGraduationRatePercentage() * 100);
+                double dataMax = Math.floor(graduationRatePercentage * 100);
                 limitSchoolDataByAmount(list, schoolData, dataMax, queryAmountMax, false);
                 break;
             case TOTAL_STUDENTS_MIN:
+                if (totalStudents == null) {
+                    return;
+                }
                 int totalStudentsQueryAmountMin = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                limitSchoolDataByAmount(list, schoolData, schoolData.getTotalStudents(), totalStudentsQueryAmountMin, true);
+                limitSchoolDataByAmount(list, schoolData, totalStudents, totalStudentsQueryAmountMin, true);
                 break;
             case TOTAL_STUDENTS_MAX:
+                if (totalStudents == null) {
+                    return;
+                }
                 int totalStudentsQueryAmountMax = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                limitSchoolDataByAmount(list, schoolData, schoolData.getTotalStudents(), totalStudentsQueryAmountMax, false);
+                limitSchoolDataByAmount(list, schoolData, totalStudents, totalStudentsQueryAmountMax, false);
                 break;
         }
     }
@@ -129,13 +148,13 @@ public final class FilterUtils {
 
         switch (sortByOption) {
             case ALPHA_SCHOOL_NAME_AZ:
-                return sortBySchoolNameAlphabetically(schoolDataList, true);
-            case ALPHA_SCHOOL_NAME_ZA:
                 return sortBySchoolNameAlphabetically(schoolDataList, false);
+            case ALPHA_SCHOOL_NAME_ZA:
+                return sortBySchoolNameAlphabetically(schoolDataList, true);
             case ALPHA_CITY_AZ:
-                return sortBySchoolCityAlphabetically(schoolDataList, true);
-            case ALPHA_CITY_ZA:
                 return sortBySchoolCityAlphabetically(schoolDataList, false);
+            case ALPHA_CITY_ZA:
+                return sortBySchoolCityAlphabetically(schoolDataList, true);
             case GRADUATION_RATE_DESC:
                 return sortBySchoolGraduationRateAlphabetically(schoolDataList, true);
             case GRADUATION_RATE_ASC:
@@ -144,13 +163,13 @@ public final class FilterUtils {
         return false;
     }
 
-    private static boolean sortBySchoolNameAlphabetically(List<ISchoolData> schoolDataList, boolean shouldDescend) {
+    private static boolean sortBySchoolNameAlphabetically(List<ISchoolData> schoolDataList, boolean shouldAscend) {
         if (schoolDataList == null || schoolDataList.isEmpty()) {
             return false;
         }
 
         Collections.sort(schoolDataList, (school1, school2) -> {
-            if (shouldDescend) {
+            if (shouldAscend) {
                 return school2.getSchoolName().compareTo(school1.getSchoolName());
             } else {
                 return school1.getSchoolName().compareTo(school2.getSchoolName());
@@ -159,13 +178,13 @@ public final class FilterUtils {
         return true;
     }
 
-    private static boolean sortBySchoolCityAlphabetically(List<ISchoolData> schoolDataList, boolean shouldDescend) {
+    private static boolean sortBySchoolCityAlphabetically(List<ISchoolData> schoolDataList, boolean shouldAscend) {
         if (schoolDataList == null || schoolDataList.isEmpty()) {
             return false;
         }
 
         Collections.sort(schoolDataList, (school1, school2) -> {
-            if (shouldDescend) {
+            if (shouldAscend) {
                 return school2.getCity().compareTo(school1.getCity());
             } else {
                 return school1.getCity().compareTo(school2.getCity());
@@ -174,16 +193,18 @@ public final class FilterUtils {
         return true;
     }
 
-    private static boolean sortBySchoolGraduationRateAlphabetically(List<ISchoolData> schoolDataList, boolean shouldDescend) {
+    private static boolean sortBySchoolGraduationRateAlphabetically(List<ISchoolData> schoolDataList, boolean shouldAscend) {
         if (schoolDataList == null || schoolDataList.isEmpty()) {
             return false;
         }
 
         Collections.sort(schoolDataList, (school1, school2) -> {
-            if (shouldDescend) {
-                return school2.getGraduationRatePercentage().compareTo(school1.getGraduationRatePercentage());
+            Double graduationRatePercentage1 = school2.getGraduationRatePercentage() != null ? school2.getGraduationRatePercentage() : 0;
+            Double graduationRatePercentage2 = school1.getGraduationRatePercentage() != null ? school1.getGraduationRatePercentage() : 0;
+            if (shouldAscend) {
+                return graduationRatePercentage1.compareTo(graduationRatePercentage2);
             } else {
-                return school1.getGraduationRatePercentage().compareTo(school2.getGraduationRatePercentage());
+                return graduationRatePercentage2.compareTo(graduationRatePercentage1);
             }
         });
         return true;
@@ -246,5 +267,4 @@ public final class FilterUtils {
                 || !hasEnumOption
                 || searchTypeOption != SearchTypeOption.SEARCH_BY_FILTER;
     }
-
 }

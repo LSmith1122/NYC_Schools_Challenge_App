@@ -6,7 +6,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="exit_app">Are you sure you want to exit the application?</string>
-    <string name="error_unknown_error">An unknown error has occurred. Please try again.</string>
+    <string name="error_unexpected_error">An unknown error has occurred. Please try again.</string>
 
     <!--region Main Activity / Search Options-->
     <string name="main_activity_title">NYC Schools Lookup</string>
@@ -43,7 +43,19 @@
     <!--endregion-->
 
     <!--region Details-->
-    <string name="details_fragment_title">School Details</string>
+    <string name="help">Help</string>
+    <string name="results_help">Graduation Rate (GR) / Student Safety Rating (SR)</string>
+    <string name="website">Website</string>
+    <string name="map">Map</string>
+    <string name="call">Call</string>
+    <string name="details_average_sat_scores_header">Average SAT Scores</string>
+    <string name="details_academics_header">Academics</string>
+    <string name="details_sports_header">Sports</string>
+    <string name="details_additional_information_header">Additional Information</string>
+    <string name="details_overview_header">Overview</string>
+    <string name="details_coed_sports_section_text">Co-Ed:</string>
+    <string name="details_girls_sports_section_text">Girls:</string>
+    <string name="details_boys_sports_section_text">Boys:</string>
 
     <!--endregion-->
 

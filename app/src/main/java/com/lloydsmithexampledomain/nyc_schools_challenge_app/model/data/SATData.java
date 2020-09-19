@@ -5,18 +5,18 @@ import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interface
 
 public class SATData implements ISATData {
 
-    @SerializedName("DBN")
+    @SerializedName("dbn")
     protected String dbn;
-    @SerializedName("School Name")
+    @SerializedName("school_name")
     protected String schoolName;
-    @SerializedName("Num of SAT Test Takers")
-    protected String testTakersAmount;
-    @SerializedName("SAT Critical Reading Avg Score")
-    protected String satReadingAvgScore;
-    @SerializedName("SAT Math Avg. Score")
-    protected String satMathAvgScore;
-    @SerializedName("SAT Writing AVG Score")
-    protected String satWritingAvgScore;
+    @SerializedName("num_of_sat_test_takers")
+    protected Integer testTakersAmount;
+    @SerializedName("sat_critical_reading_avg_score")
+    protected Integer satReadingAvgScore;
+    @SerializedName("sat_math_avg_score")
+    protected Integer satMathAvgScore;
+    @SerializedName("sat_writing_avg_score")
+    protected Integer satWritingAvgScore;
 
     public SATData() {}
 
@@ -31,22 +31,22 @@ public class SATData implements ISATData {
     }
 
     @Override
-    public String getTestTakersAmount() {
+    public Integer getTestTakersAmount() {
         return testTakersAmount;
     }
 
     @Override
-    public String getSatReadingAvgScore() {
+    public Integer getSatReadingAvgScore() {
         return satReadingAvgScore;
     }
 
     @Override
-    public String getSatMathAvgScore() {
+    public Integer getSatMathAvgScore() {
         return satMathAvgScore;
     }
 
     @Override
-    public String getSatWritingAvgScore() {
+    public Integer getSatWritingAvgScore() {
         return satWritingAvgScore;
     }
 }

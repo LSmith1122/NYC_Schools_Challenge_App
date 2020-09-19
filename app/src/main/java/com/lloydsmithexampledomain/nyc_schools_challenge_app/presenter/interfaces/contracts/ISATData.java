@@ -5,8 +5,8 @@ import java.io.Serializable;
 public interface ISATData extends Serializable {
     String getDbn();
     String getSchoolName();
-    String getTestTakersAmount();
-    String getSatReadingAvgScore();
-    String getSatMathAvgScore();
-    String getSatWritingAvgScore();
+    Integer getTestTakersAmount();
+    Integer getSatReadingAvgScore();
+    Integer getSatMathAvgScore();
+    Integer getSatWritingAvgScore();
 }

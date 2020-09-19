@@ -42,7 +42,7 @@ public class SchoolResultsAdapter extends RecyclerView.Adapter<SchoolResultsAdap
     public void onBindViewHolder(@NonNull SchoolResultsAdapter.SchoolResultsViewHolder holder, int position) {
         final ISchoolData result = mSchoolResults.get(position);
         holder.schoolNameTextView.setText(result.getSchoolName());
-        holder.statsRatingTextView.setText(String.format("%s\n%s", getPercentageString(result.getGraduationRatePercentage()), getPercentageString(result.getStudentSafetyPercentage())));
+        holder.statsRatingTextView.setText(String.format("GR: %s\nSR: %s", getPercentageString(result.getGraduationRatePercentage()), getPercentageString(result.getStudentSafetyPercentage())));
         holder.locationTextView.setText(String.format(Locale.getDefault(), "%s, %s %s", result.getCity(), result.getStateCode(), result.getPostcode()));
         holder.itemView.setOnClickListener(v -> {
             if (mListener != null) {

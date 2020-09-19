@@ -1,7 +1,7 @@
 package com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.presenters;
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.interfaces.contracts.ISchoolDataCallback;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.services.SchoolDirectoryService;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.services.SchoolDataService;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISATData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchPresenter;
@@ -21,7 +21,7 @@ import javax.inject.Inject;
 public class SearchPresenter implements ISearchPresenter {
 
     @Inject
-    SchoolDirectoryService mSchoolService;
+    SchoolDataService mSchoolService;
 
     private IResultsFragmentView mResultsFragmentView;
     private ISearchParams mSearchParams;
@@ -50,19 +50,20 @@ public class SearchPresenter implements ISearchPresenter {
         for (ISchoolData schoolData : mCachedSchoolData) {
             if (schoolData.getDbn().equals(actDataForDbn.getDbn())) {
                 if (actDataForDbn.getSatMathAvgScore() != null) {
-                    schoolData.setSATForMath(Integer.parseInt(actDataForDbn.getSatMathAvgScore()));
+                    schoolData.setSATForMath(actDataForDbn.getSatMathAvgScore());
                 }
                 if (actDataForDbn.getSatWritingAvgScore() != null) {
-                    schoolData.setSATForWriting(Integer.parseInt(actDataForDbn.getSatWritingAvgScore()));
+                    schoolData.setSATForWriting(actDataForDbn.getSatWritingAvgScore());
                 }
                 if (actDataForDbn.getSatReadingAvgScore() != null) {
-                    schoolData.setSATForReading(Integer.parseInt(actDataForDbn.getSatReadingAvgScore()));
+                    schoolData.setSATForReading(actDataForDbn.getSatReadingAvgScore());
                 }
 
                 mResultsFragmentView.onSATDetailsSearchComplete(schoolData);
-                break;
+                return;
             }
         }
+        mResultsFragmentView.onSearchError(null, 500);
     }
 
     @Override
@@ -101,13 +102,18 @@ public class SearchPresenter implements ISearchPresenter {
             ISchoolDataCallback<ISATData> callback = new ISchoolDataCallback<ISATData>() {
                 @Override
                 public void onSuccess(ISATData satData, int httpResponseCode) {
-                    mCachedSATData.put(dbn, satData);
+                    if (satData != null && satData.getDbn() != null
+                            && satData.getSatMathAvgScore() != null
+                            && satData.getSatReadingAvgScore() != null
+                            && satData.getSatWritingAvgScore() != null) {
+                        mCachedSATData.put(dbn, satData);
+                    }
                     processAndDeliverSchoolData(satData);
                 }
 
                 @Override
                 public void onError(int httpResponseCode, Throwable throwable) {
-
+                    mResultsFragmentView.onSearchError(null, httpResponseCode);
                 }
             };
             mSchoolService.getACTDataForDbn(dbn, callback);

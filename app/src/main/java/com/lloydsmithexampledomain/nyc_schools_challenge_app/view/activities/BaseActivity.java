@@ -50,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             builder.setPositiveButton(getString(R.string.yes), positive);
         }
         if (negative != null) {
-            builder.setPositiveButton(getString(R.string.no), negative);
+            builder.setNegativeButton(getString(R.string.no), negative);
         }
         if (positive == null && negative == null) {
             builder.setNeutralButton(R.string.ok, (dialog, which) -> dialog.dismiss());

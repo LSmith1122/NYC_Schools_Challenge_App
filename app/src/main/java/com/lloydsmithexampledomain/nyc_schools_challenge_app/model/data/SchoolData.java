@@ -1,415 +1,414 @@
 package com.lloydsmithexampledomain.nyc_schools_challenge_app.model.data;
 
 import com.google.gson.annotations.SerializedName;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.utils.ServiceConstants;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
-
-import java.io.Serializable;
 
 public class SchoolData implements ISchoolData {
 
-    @SerializedName("dbn")
+    @SerializedName(ServiceConstants.DBN)
     protected String dbn = "";
-    @SerializedName("school_name")
+    @SerializedName(ServiceConstants.SCHOOL_NAME)
     protected String schoolName = "";
-    @SerializedName("overview_paragraph")
+    @SerializedName(ServiceConstants.OVERVIEW_PARAGRAPH)
     protected String overviewParagraph = "";
-    @SerializedName("addtl_info1")
+    @SerializedName(ServiceConstants.ADDTL_INFO1)
     protected String additionalInfo = "";
-    @SerializedName("shared_space")
+    @SerializedName(ServiceConstants.SHARED_SPACE)
     protected String sharedSpace = "";
-    @SerializedName("primary_address_line_1")
+    @SerializedName(ServiceConstants.PRIMARY_ADDRESS_LINE_1)
     protected String primaryAddressLine = "";
-    @SerializedName("city")
+    @SerializedName(ServiceConstants.CITY)
     protected String city = "";
-    @SerializedName("state_code")
+    @SerializedName(ServiceConstants.STATE_CODE)
     protected String state_code = "";
-    @SerializedName("Postcode")
+    @SerializedName(ServiceConstants.POSTCODE)
     protected String postcode = "";
-    @SerializedName("neighborhood")
+    @SerializedName(ServiceConstants.NEIGHBORHOOD)
     protected String neighborhood = "";
-    @SerializedName("Latitude")
+    @SerializedName(ServiceConstants.LATITUDE)
     protected String latitude = "";
-    @SerializedName("Longitude")
+    @SerializedName(ServiceConstants.LONGITUDE)
     protected String longitude = "";
-    @SerializedName("phone_number")
+    @SerializedName(ServiceConstants.PHONE_NUMBER)
     protected String phoneNumber = "";
-    @SerializedName("fax_number")
+    @SerializedName(ServiceConstants.FAX_NUMBER)
     protected String faxNumber = "";
-    @SerializedName("school_email")
+    @SerializedName(ServiceConstants.SCHOOL_EMAIL)
     protected String schoolEmail = "";
-    @SerializedName("website")
+    @SerializedName(ServiceConstants.WEBSITE)
     protected String website = "";
-    @SerializedName("start_time")
+    @SerializedName(ServiceConstants.START_TIME)
     protected String startTime = "";
-    @SerializedName("end_time")
+    @SerializedName(ServiceConstants.END_TIME)
     protected String endTime = "";
-    @SerializedName("subway")
+    @SerializedName(ServiceConstants.SUBWAY)
     protected String subwayLines = "";
-    @SerializedName("bus")
+    @SerializedName(ServiceConstants.BUS)
     protected String busLines = "";
-    @SerializedName("total_students")
+    @SerializedName(ServiceConstants.TOTAL_STUDENTS)
     protected Integer totalStudents;
-    @SerializedName("extracurricular_activities")
+    @SerializedName(ServiceConstants.EXTRACURRICULAR_ACTIVITIES)
     protected String extracurricularActivities = "";
-    @SerializedName("psal_sports_boys")
+    @SerializedName(ServiceConstants.PSAL_SPORTS_BOYS)
     protected String sportsBoys = "";
-    @SerializedName("psal_sports_girls")
+    @SerializedName(ServiceConstants.PSAL_SPORTS_GIRLS)
     protected String sportsGirls = "";
-    @SerializedName("psal_sports_coed")
+    @SerializedName(ServiceConstants.PSAL_SPORTS_COED)
     protected String sportsCoed = "";
-    @SerializedName("school_sports")
+    @SerializedName(ServiceConstants.SCHOOL_SPORTS)
     protected String schoolSports = "";
-    @SerializedName("graduation_rate")
+    @SerializedName(ServiceConstants.GRADUATION_RATE)
     protected Double graduationRatePercentage;
-    @SerializedName("pct_stu_enough_variety")
+    @SerializedName(ServiceConstants.PCT_STU_ENOUGH_VARIETY)
     protected Double varietySatisfactionPercentage;
-    @SerializedName("girls")
+    @SerializedName(ServiceConstants.GIRLS)
     protected Boolean girlsOnly;
-    @SerializedName("boys")
+    @SerializedName(ServiceConstants.BOYS)
     protected Boolean boysOnly;
-    @SerializedName("pct_stu_safe")
+    @SerializedName(ServiceConstants.PCT_STU_SAFE)
     protected Double studentSafetyPercentage;
-    @SerializedName("school_accessibility_description")
+    @SerializedName(ServiceConstants.SCHOOL_ACCESSIBILITY_DESCRIPTION)
     protected String schoolAccessibilityDescription = "";
-    @SerializedName("language_classes")
+    @SerializedName(ServiceConstants.LANGUAGE_CLASSES)
     protected String languageClasses = "";
-    @SerializedName("advancedplacement_courses")
+    @SerializedName(ServiceConstants.ADVANCEDPLACEMENT_COURSES)
     protected String advancedPlacementCourses = "";
-    @SerializedName("diplomaendorsements")
+    @SerializedName(ServiceConstants.DIPLOMAENDORSEMENTS)
     protected String diplomaEndorsements = "";
 
-    @SerializedName("international")
+    @SerializedName(ServiceConstants.INTERNATIONAL)
     protected Boolean isInternational;
-    @SerializedName("specialized")
+    @SerializedName(ServiceConstants.SPECIALIZED)
     protected Boolean isSpecialized;
-    @SerializedName("transfer")
+    @SerializedName(ServiceConstants.TRANSFER)
     protected Boolean isTransfer;
-    @SerializedName("ptech")
+    @SerializedName(ServiceConstants.PTECH)
     protected Boolean isPtech;
-    @SerializedName("earlycollege")
+    @SerializedName(ServiceConstants.EARLYCOLLEGE)
     protected Boolean isEarlyCollegeSchool;
-    @SerializedName("geoeligibility")
+    @SerializedName(ServiceConstants.GEOELIGIBILITY)
     protected String geographicEligibility = "";
 
-    @SerializedName("academicopportunities1")
+    @SerializedName(ServiceConstants.ACADEMICOPPORTUNITIES1)
     protected String academicOpportunities1 = "";
-    @SerializedName("academicopportunities2")
+    @SerializedName(ServiceConstants.ACADEMICOPPORTUNITIES2)
     protected String academicOpportunities2 = "";
-    @SerializedName("academicopportunities3")
+    @SerializedName(ServiceConstants.ACADEMICOPPORTUNITIES3)
     protected String academicOpportunities3 = "";
-    @SerializedName("academicopportunities4")
+    @SerializedName(ServiceConstants.ACADEMICOPPORTUNITIES4)
     protected String academicOpportunities4 = "";
-    @SerializedName("academicopportunities5")
+    @SerializedName(ServiceConstants.ACADEMICOPPORTUNITIES5)
     protected String academicOpportunities5 = "";
 
-    @SerializedName("interest1")
+    @SerializedName(ServiceConstants.INTEREST1)
     protected String interest1 = "";
-    @SerializedName("interest2")
+    @SerializedName(ServiceConstants.INTEREST2)
     protected String interest2 = "";
-    @SerializedName("interest3")
+    @SerializedName(ServiceConstants.INTEREST3)
     protected String interest3 = "";
-    @SerializedName("interest4")
+    @SerializedName(ServiceConstants.INTEREST4)
     protected String interest4 = "";
-    @SerializedName("interest5")
+    @SerializedName(ServiceConstants.INTEREST5)
     protected String interest5 = "";
-    @SerializedName("interest6")
+    @SerializedName(ServiceConstants.INTEREST6)
     protected String interest6 = "";
-    @SerializedName("interest7")
+    @SerializedName(ServiceConstants.INTEREST7)
     protected String interest7 = "";
-    @SerializedName("interest8")
+    @SerializedName(ServiceConstants.INTEREST8)
     protected String interest8 = "";
-    @SerializedName("interest9")
+    @SerializedName(ServiceConstants.INTEREST9)
     protected String interest9 = "";
-    @SerializedName("interest10")
+    @SerializedName(ServiceConstants.INTEREST10)
     protected String interest10 = "";
 
-    @SerializedName("program1")
+    @SerializedName(ServiceConstants.PROGRAM1)
     protected String program1 = "";
-    @SerializedName("program2")
+    @SerializedName(ServiceConstants.PROGRAM2)
     protected String program2 = "";
-    @SerializedName("program3")
+    @SerializedName(ServiceConstants.PROGRAM3)
     protected String program3 = "";
-    @SerializedName("program4")
+    @SerializedName(ServiceConstants.PROGRAM4)
     protected String program4 = "";
-    @SerializedName("program5")
+    @SerializedName(ServiceConstants.PROGRAM5)
     protected String program5 = "";
-    @SerializedName("program6")
+    @SerializedName(ServiceConstants.PROGRAM6)
     protected String program6 = "";
-    @SerializedName("program7")
+    @SerializedName(ServiceConstants.PROGRAM7)
     protected String program7 = "";
-    @SerializedName("program8")
+    @SerializedName(ServiceConstants.PROGRAM8)
     protected String program8 = "";
-    @SerializedName("program9")
+    @SerializedName(ServiceConstants.PROGRAM9)
     protected String program9 = "";
-    @SerializedName("program10")
+    @SerializedName(ServiceConstants.PROGRAM10)
     protected String program10 = "";
-    @SerializedName("requirement1_1")
+    @SerializedName(ServiceConstants.REQUIREMENT1_1)
     protected String requirement1_1 = "";
-    @SerializedName("requirement1_2")
+    @SerializedName(ServiceConstants.REQUIREMENT1_2)
     protected String requirement1_2 = "";
-    @SerializedName("requirement1_3")
+    @SerializedName(ServiceConstants.REQUIREMENT1_3)
     protected String requirement1_3 = "";
-    @SerializedName("requirement1_4")
+    @SerializedName(ServiceConstants.REQUIREMENT1_4)
     protected String requirement1_4 = "";
-    @SerializedName("requirement1_5")
+    @SerializedName(ServiceConstants.REQUIREMENT1_5)
     protected String requirement1_5 = "";
-    @SerializedName("requirement1_6")
+    @SerializedName(ServiceConstants.REQUIREMENT1_6)
     protected String requirement1_6 = "";
-    @SerializedName("requirement1_7")
+    @SerializedName(ServiceConstants.REQUIREMENT1_7)
     protected String requirement1_7 = "";
-    @SerializedName("requirement1_8")
+    @SerializedName(ServiceConstants.REQUIREMENT1_8)
     protected String requirement1_8 = "";
-    @SerializedName("requirement1_9")
+    @SerializedName(ServiceConstants.REQUIREMENT1_9)
     protected String requirement1_9 = "";
-    @SerializedName("requirement1_10")
+    @SerializedName(ServiceConstants.REQUIREMENT1_10)
     protected String requirement1_10 = "";
-    @SerializedName("requirement2_1")
+    @SerializedName(ServiceConstants.REQUIREMENT2_1)
     protected String requirement2_1 = "";
-    @SerializedName("requirement2_2")
+    @SerializedName(ServiceConstants.REQUIREMENT2_2)
     protected String requirement2_2 = "";
-    @SerializedName("requirement2_3")
+    @SerializedName(ServiceConstants.REQUIREMENT2_3)
     protected String requirement2_3 = "";
-    @SerializedName("requirement2_4")
+    @SerializedName(ServiceConstants.REQUIREMENT2_4)
     protected String requirement2_4 = "";
-    @SerializedName("requirement2_5")
+    @SerializedName(ServiceConstants.REQUIREMENT2_5)
     protected String requirement2_5 = "";
-    @SerializedName("requirement2_6")
+    @SerializedName(ServiceConstants.REQUIREMENT2_6)
     protected String requirement2_6 = "";
-    @SerializedName("requirement2_7")
+    @SerializedName(ServiceConstants.REQUIREMENT2_7)
     protected String requirement2_7 = "";
-    @SerializedName("requirement2_8")
+    @SerializedName(ServiceConstants.REQUIREMENT2_8)
     protected String requirement2_8 = "";
-    @SerializedName("requirement2_9")
+    @SerializedName(ServiceConstants.REQUIREMENT2_9)
     protected String requirement2_9 = "";
-    @SerializedName("requirement2_10")
+    @SerializedName(ServiceConstants.REQUIREMENT2_10)
     protected String requirement2_10 = "";
-    @SerializedName("requirement3_1")
+    @SerializedName(ServiceConstants.REQUIREMENT3_1)
     protected String requirement3_1 = "";
-    @SerializedName("requirement3_2")
+    @SerializedName(ServiceConstants.REQUIREMENT3_2)
     protected String requirement3_2 = "";
-    @SerializedName("requirement3_3")
+    @SerializedName(ServiceConstants.REQUIREMENT3_3)
     protected String requirement3_3 = "";
-    @SerializedName("requirement3_4")
+    @SerializedName(ServiceConstants.REQUIREMENT3_4)
     protected String requirement3_4 = "";
-    @SerializedName("requirement3_5")
+    @SerializedName(ServiceConstants.REQUIREMENT3_5)
     protected String requirement3_5 = "";
-    @SerializedName("requirement3_6")
+    @SerializedName(ServiceConstants.REQUIREMENT3_6)
     protected String requirement3_6 = "";
-    @SerializedName("requirement3_7")
+    @SerializedName(ServiceConstants.REQUIREMENT3_7)
     protected String requirement3_7 = "";
-    @SerializedName("requirement3_8")
+    @SerializedName(ServiceConstants.REQUIREMENT3_8)
     protected String requirement3_8 = "";
-    @SerializedName("requirement3_9")
+    @SerializedName(ServiceConstants.REQUIREMENT3_9)
     protected String requirement3_9 = "";
-    @SerializedName("requirement3_10")
+    @SerializedName(ServiceConstants.REQUIREMENT3_10)
     protected String requirement3_10 = "";
-    @SerializedName("requirement4_1")
+    @SerializedName(ServiceConstants.REQUIREMENT4_1)
     protected String requirement4_1 = "";
-    @SerializedName("requirement4_2")
+    @SerializedName(ServiceConstants.REQUIREMENT4_2)
     protected String requirement4_2 = "";
-    @SerializedName("requirement4_3")
+    @SerializedName(ServiceConstants.REQUIREMENT4_3)
     protected String requirement4_3 = "";
-    @SerializedName("requirement4_4")
+    @SerializedName(ServiceConstants.REQUIREMENT4_4)
     protected String requirement4_4 = "";
-    @SerializedName("requirement4_5")
+    @SerializedName(ServiceConstants.REQUIREMENT4_5)
     protected String requirement4_5 = "";
-    @SerializedName("requirement4_6")
+    @SerializedName(ServiceConstants.REQUIREMENT4_6)
     protected String requirement4_6 = "";
-    @SerializedName("requirement4_7")
+    @SerializedName(ServiceConstants.REQUIREMENT4_7)
     protected String requirement4_7 = "";
-    @SerializedName("requirement4_8")
+    @SerializedName(ServiceConstants.REQUIREMENT4_8)
     protected String requirement4_8 = "";
-    @SerializedName("requirement4_9")
+    @SerializedName(ServiceConstants.REQUIREMENT4_9)
     protected String requirement4_9 = "";
-    @SerializedName("requirement4_10")
+    @SerializedName(ServiceConstants.REQUIREMENT4_10)
     protected String requirement4_10 = "";
-    @SerializedName("requirement5_1")
+    @SerializedName(ServiceConstants.REQUIREMENT5_1)
     protected String requirement5_1 = "";
-    @SerializedName("requirement5_2")
+    @SerializedName(ServiceConstants.REQUIREMENT5_2)
     protected String requirement5_2 = "";
-    @SerializedName("requirement5_3")
+    @SerializedName(ServiceConstants.REQUIREMENT5_3)
     protected String requirement5_3 = "";
-    @SerializedName("requirement5_4")
+    @SerializedName(ServiceConstants.REQUIREMENT5_4)
     protected String requirement5_4 = "";
-    @SerializedName("requirement5_5")
+    @SerializedName(ServiceConstants.REQUIREMENT5_5)
     protected String requirement5_5 = "";
-    @SerializedName("requirement5_6")
+    @SerializedName(ServiceConstants.REQUIREMENT5_6)
     protected String requirement5_6 = "";
-    @SerializedName("requirement5_7")
+    @SerializedName(ServiceConstants.REQUIREMENT5_7)
     protected String requirement5_7 = "";
-    @SerializedName("requirement5_8")
+    @SerializedName(ServiceConstants.REQUIREMENT5_8)
     protected String requirement5_8 = "";
-    @SerializedName("requirement5_9")
+    @SerializedName(ServiceConstants.REQUIREMENT5_9)
     protected String requirement5_9 = "";
-    @SerializedName("requirement5_10")
+    @SerializedName(ServiceConstants.REQUIREMENT5_10)
     protected String requirement5_10 = "";
-    @SerializedName("requirement6_1")
+    @SerializedName(ServiceConstants.REQUIREMENT6_1)
     protected String requirement6_1 = "";
-    @SerializedName("requirement6_2")
+    @SerializedName(ServiceConstants.REQUIREMENT6_2)
     protected String requirement6_2 = "";
-    @SerializedName("requirement6_3")
+    @SerializedName(ServiceConstants.REQUIREMENT6_3)
     protected String requirement6_3 = "";
-    @SerializedName("requirement6_4")
+    @SerializedName(ServiceConstants.REQUIREMENT6_4)
     protected String requirement6_4 = "";
-    @SerializedName("requirement6_5")
+    @SerializedName(ServiceConstants.REQUIREMENT6_5)
     protected String requirement6_5 = "";
-    @SerializedName("requirement6_6")
+    @SerializedName(ServiceConstants.REQUIREMENT6_6)
     protected String requirement6_6 = "";
-    @SerializedName("requirement6_7")
+    @SerializedName(ServiceConstants.REQUIREMENT6_7)
     protected String requirement6_7 = "";
-    @SerializedName("requirement6_8")
+    @SerializedName(ServiceConstants.REQUIREMENT6_8)
     protected String requirement6_8 = "";
-    @SerializedName("requirement6_9")
+    @SerializedName(ServiceConstants.REQUIREMENT6_9)
     protected String requirement6_9 = "";
-    @SerializedName("requirement6_10")
+    @SerializedName(ServiceConstants.REQUIREMENT6_10)
     protected String requirement6_10 = "";
-    @SerializedName("requirement7_1")
+    @SerializedName(ServiceConstants.REQUIREMENT7_1)
     protected String requirement7_1 = "";
-    @SerializedName("requirement7_2")
+    @SerializedName(ServiceConstants.REQUIREMENT7_2)
     protected String requirement7_2 = "";
-    @SerializedName("requirement7_3")
+    @SerializedName(ServiceConstants.REQUIREMENT7_3)
     protected String requirement7_3 = "";
-    @SerializedName("requirement7_4")
+    @SerializedName(ServiceConstants.REQUIREMENT7_4)
     protected String requirement7_4 = "";
-    @SerializedName("requirement7_5")
+    @SerializedName(ServiceConstants.REQUIREMENT7_5)
     protected String requirement7_5 = "";
-    @SerializedName("requirement7_6")
+    @SerializedName(ServiceConstants.REQUIREMENT7_6)
     protected String requirement7_6 = "";
-    @SerializedName("requirement7_7")
+    @SerializedName(ServiceConstants.REQUIREMENT7_7)
     protected String requirement7_7 = "";
-    @SerializedName("requirement7_8")
+    @SerializedName(ServiceConstants.REQUIREMENT7_8)
     protected String requirement7_8 = "";
-    @SerializedName("requirement7_9")
+    @SerializedName(ServiceConstants.REQUIREMENT7_9)
     protected String requirement7_9 = "";
-    @SerializedName("requirement7_10")
+    @SerializedName(ServiceConstants.REQUIREMENT7_10)
     protected String requirement7_10 = "";
-    @SerializedName("requirement8_1")
+    @SerializedName(ServiceConstants.REQUIREMENT8_1)
     protected String requirement8_1 = "";
-    @SerializedName("requirement8_2")
+    @SerializedName(ServiceConstants.REQUIREMENT8_2)
     protected String requirement8_2 = "";
-    @SerializedName("requirement8_3")
+    @SerializedName(ServiceConstants.REQUIREMENT8_3)
     protected String requirement8_3 = "";
-    @SerializedName("requirement8_4")
+    @SerializedName(ServiceConstants.REQUIREMENT8_4)
     protected String requirement8_4 = "";
-    @SerializedName("requirement8_5")
+    @SerializedName(ServiceConstants.REQUIREMENT8_5)
     protected String requirement8_5 = "";
-    @SerializedName("requirement8_6")
+    @SerializedName(ServiceConstants.REQUIREMENT8_6)
     protected String requirement8_6 = "";
-    @SerializedName("requirement8_7")
+    @SerializedName(ServiceConstants.REQUIREMENT8_7)
     protected String requirement8_7 = "";
-    @SerializedName("requirement8_8")
+    @SerializedName(ServiceConstants.REQUIREMENT8_8)
     protected String requirement8_8 = "";
-    @SerializedName("requirement8_9")
+    @SerializedName(ServiceConstants.REQUIREMENT8_9)
     protected String requirement8_9 = "";
-    @SerializedName("requirement8_10")
+    @SerializedName(ServiceConstants.REQUIREMENT8_10)
     protected String requirement8_10 = "";
-    @SerializedName("requirement9_1")
+    @SerializedName(ServiceConstants.REQUIREMENT9_1)
     protected String requirement9_1 = "";
-    @SerializedName("requirement9_2")
+    @SerializedName(ServiceConstants.REQUIREMENT9_2)
     protected String requirement9_2 = "";
-    @SerializedName("requirement9_3")
+    @SerializedName(ServiceConstants.REQUIREMENT9_3)
     protected String requirement9_3 = "";
-    @SerializedName("requirement9_4")
+    @SerializedName(ServiceConstants.REQUIREMENT9_4)
     protected String requirement9_4 = "";
-    @SerializedName("requirement9_5")
+    @SerializedName(ServiceConstants.REQUIREMENT9_5)
     protected String requirement9_5 = "";
-    @SerializedName("requirement9_6")
+    @SerializedName(ServiceConstants.REQUIREMENT9_6)
     protected String requirement9_6 = "";
-    @SerializedName("requirement9_7")
+    @SerializedName(ServiceConstants.REQUIREMENT9_7)
     protected String requirement9_7 = "";
-    @SerializedName("requirement9_8")
+    @SerializedName(ServiceConstants.REQUIREMENT9_8)
     protected String requirement9_8 = "";
-    @SerializedName("requirement9_9")
+    @SerializedName(ServiceConstants.REQUIREMENT9_9)
     protected String requirement9_9 = "";
-    @SerializedName("requirement9_10")
+    @SerializedName(ServiceConstants.REQUIREMENT9_10)
     protected String requirement9_10 = "";
-    @SerializedName("requirement10_1")
+    @SerializedName(ServiceConstants.REQUIREMENT10_1)
     protected String requirement10_1 = "";
-    @SerializedName("requirement10_2")
+    @SerializedName(ServiceConstants.REQUIREMENT10_2)
     protected String requirement10_2 = "";
-    @SerializedName("requirement10_3")
+    @SerializedName(ServiceConstants.REQUIREMENT10_3)
     protected String requirement10_3 = "";
-    @SerializedName("requirement10_4")
+    @SerializedName(ServiceConstants.REQUIREMENT10_4)
     protected String requirement10_4 = "";
-    @SerializedName("requirement10_5")
+    @SerializedName(ServiceConstants.REQUIREMENT10_5)
     protected String requirement10_5 = "";
-    @SerializedName("requirement10_6")
+    @SerializedName(ServiceConstants.REQUIREMENT10_6)
     protected String requirement10_6 = "";
-    @SerializedName("requirement10_7")
+    @SerializedName(ServiceConstants.REQUIREMENT10_7)
     protected String requirement10_7 = "";
-    @SerializedName("requirement10_8")
+    @SerializedName(ServiceConstants.REQUIREMENT10_8)
     protected String requirement10_8 = "";
-    @SerializedName("requirement10_9")
+    @SerializedName(ServiceConstants.REQUIREMENT10_9)
     protected String requirement10_9 = "";
-    @SerializedName("requirement10_10")
+    @SerializedName(ServiceConstants.REQUIREMENT10_10)
     protected String requirement10_10 = "";
-    @SerializedName("requirement11_1")
+    @SerializedName(ServiceConstants.REQUIREMENT11_1)
     protected String requirement11_1 = "";
-    @SerializedName("requirement11_2")
+    @SerializedName(ServiceConstants.REQUIREMENT11_2)
     protected String requirement11_2 = "";
-    @SerializedName("requirement11_3")
+    @SerializedName(ServiceConstants.REQUIREMENT11_3)
     protected String requirement11_3 = "";
-    @SerializedName("requirement11_4")
+    @SerializedName(ServiceConstants.REQUIREMENT11_4)
     protected String requirement11_4 = "";
-    @SerializedName("requirement11_5")
+    @SerializedName(ServiceConstants.REQUIREMENT11_5)
     protected String requirement11_5 = "";
-    @SerializedName("requirement11_6")
+    @SerializedName(ServiceConstants.REQUIREMENT11_6)
     protected String requirement11_6 = "";
-    @SerializedName("requirement11_7")
+    @SerializedName(ServiceConstants.REQUIREMENT11_7)
     protected String requirement11_7 = "";
-    @SerializedName("requirement11_8")
+    @SerializedName(ServiceConstants.REQUIREMENT11_8)
     protected String requirement11_8 = "";
-    @SerializedName("requirement11_9")
+    @SerializedName(ServiceConstants.REQUIREMENT11_9)
     protected String requirement11_9 = "";
-    @SerializedName("requirement11_10")
+    @SerializedName(ServiceConstants.REQUIREMENT11_10)
     protected String requirement11_10 = "";
-    @SerializedName("requirement12_1")
+    @SerializedName(ServiceConstants.REQUIREMENT12_1)
     protected String requirement12_1 = "";
-    @SerializedName("requirement12_2")
+    @SerializedName(ServiceConstants.REQUIREMENT12_2)
     protected String requirement12_2 = "";
-    @SerializedName("requirement12_3")
+    @SerializedName(ServiceConstants.REQUIREMENT12_3)
     protected String requirement12_3 = "";
-    @SerializedName("requirement12_4")
+    @SerializedName(ServiceConstants.REQUIREMENT12_4)
     protected String requirement12_4 = "";
-    @SerializedName("requirement12_5")
+    @SerializedName(ServiceConstants.REQUIREMENT12_5)
     protected String requirement12_5 = "";
-    @SerializedName("requirement12_6")
+    @SerializedName(ServiceConstants.REQUIREMENT12_6)
     protected String requirement12_6 = "";
-    @SerializedName("requirement12_7")
+    @SerializedName(ServiceConstants.REQUIREMENT12_7)
     protected String requirement12_7 = "";
-    @SerializedName("requirement12_8")
+    @SerializedName(ServiceConstants.REQUIREMENT12_8)
     protected String requirement12_8 = "";
-    @SerializedName("requirement12_9")
+    @SerializedName(ServiceConstants.REQUIREMENT12_9)
     protected String requirement12_9 = "";
-    @SerializedName("requirement12_10")
+    @SerializedName(ServiceConstants.REQUIREMENT12_10)
     protected String requirement12_10 = "";
 
-    @SerializedName("eligibility1")
+    @SerializedName(ServiceConstants.ELIGIBILITY1)
     protected String eligibility1 = "";
-    @SerializedName("eligibility2")
+    @SerializedName(ServiceConstants.ELIGIBILITY2)
     protected String eligibility2 = "";
-    @SerializedName("eligibility3")
+    @SerializedName(ServiceConstants.ELIGIBILITY3)
     protected String eligibility3 = "";
-    @SerializedName("eligibility4")
+    @SerializedName(ServiceConstants.ELIGIBILITY4)
     protected String eligibility4 = "";
-    @SerializedName("eligibility5")
+    @SerializedName(ServiceConstants.ELIGIBILITY5)
     protected String eligibility5 = "";
-    @SerializedName("eligibility6")
+    @SerializedName(ServiceConstants.ELIGIBILITY6)
     protected String eligibility6 = "";
-    @SerializedName("eligibility7")
+    @SerializedName(ServiceConstants.ELIGIBILITY7)
     protected String eligibility7 = "";
-    @SerializedName("eligibility8")
+    @SerializedName(ServiceConstants.ELIGIBILITY8)
     protected String eligibility8 = "";
-    @SerializedName("eligibility9")
+    @SerializedName(ServiceConstants.ELIGIBILITY9)
     protected String eligibility9 = "";
-    @SerializedName("eligibility10")
+    @SerializedName(ServiceConstants.ELIGIBILITY10)
     protected String eligibility10 = "";
 
-    @SerializedName("readingSAT")
+    @SerializedName(ServiceConstants.SAT_CRITICAL_READING_AVG_SCORE)
     protected Integer avgACTScoreForReading;
-    @SerializedName("writingSAT")
+    @SerializedName(ServiceConstants.SAT_WRITING_AVG_SCORE)
     protected Integer avgACTScoreForWriting;
-    @SerializedName("mathSAT")
+    @SerializedName(ServiceConstants.SAT_MATH_AVG_SCORE)
     protected Integer avgACTScoreForMath;
 
     public SchoolData() {}

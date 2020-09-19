@@ -16,6 +16,6 @@ public interface ISchoolDirectoryService {
     Call<List<SchoolData>> getAllSchools();
 
     @GET(ServiceConstants.PATH_SCHOOL_SAT_SEARCH)
-    Call<SATData> getSATDataForSchoolDbn(@Query(value = "dbn") String dbn);
+    Call<List<SATData>> getSATDataForSchoolDbn(@Query(value = "dbn") String dbn);
 
 }
