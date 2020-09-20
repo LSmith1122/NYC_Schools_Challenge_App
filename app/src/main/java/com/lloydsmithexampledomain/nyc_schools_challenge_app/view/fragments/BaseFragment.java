@@ -1,6 +1,7 @@
 package com.lloydsmithexampledomain.nyc_schools_challenge_app.view.fragments;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 import androidx.fragment.app.Fragment;
 
@@ -12,20 +13,25 @@ public abstract class BaseFragment extends Fragment {
     protected AlertDialog mDialog;
 
     protected void showProgressDialog() {
-        showInformationalDialog(getString(R.string.please_wait));
+        showInformationalDialog(getString(R.string.please_wait), false);
     }
 
     protected void showInformationalDialog(String message) {
-        if (getActivity() != null) {
-            ((BaseActivity) getActivity()).showInformationalDialog(message);
-        }
+        showInformationalDialog(message, false);
     }
 
-    protected AlertDialog.Builder createInformationalDialog(String message, boolean isCancelable) {
+    protected void showErrorDialog(String message) {
+        showInformationalDialog(message, true);
+    }
+
+    protected void showInformationalDialog(String message, boolean isError) {
         if (getActivity() != null) {
-            return ((BaseActivity) getActivity()).createInformationalDialog(message, isCancelable);
+            DialogInterface.OnClickListener onClickListener = null;
+            if (isError) {
+                onClickListener = (dialog, which) -> dialog.dismiss();
+            }
+            ((BaseActivity) getActivity()).showInformationalDialog(message, onClickListener);
         }
-        return null;
     }
 
     protected void hideDialog() {

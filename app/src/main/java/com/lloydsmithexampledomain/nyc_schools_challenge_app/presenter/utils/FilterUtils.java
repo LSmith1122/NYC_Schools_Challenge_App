@@ -20,8 +20,8 @@ public final class FilterUtils {
     public static List<ISchoolData> filterBySchoolName(List<ISchoolData> schoolDataList, String schoolName) {
         List<ISchoolData> list = new ArrayList<>();
         for (ISchoolData school : schoolDataList) {
-            if (school.getSchoolName().contains(schoolName)) {
-                list.add(school);
+            if (school.getSchoolName().toLowerCase().contains(schoolName.toLowerCase().trim())) {
+               list.add(school);
             }
         }
         if (list.isEmpty()) {
@@ -213,7 +213,7 @@ public final class FilterUtils {
 
     private static void filterSchoolDataByCity(ISearchParams searchParams, ISchoolData schoolData, List<ISchoolData> list) {
         try {
-            if (schoolData.getCity().contains(searchParams.getFilterByOptionQuery())) {
+            if (schoolData.getCity().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
             }
         } catch (NullPointerException e) {
@@ -223,15 +223,15 @@ public final class FilterUtils {
 
     private static void filterSchoolDataByAcademics(ISearchParams searchParams, ISchoolData schoolData, List<ISchoolData> list) {
         try {
-            if (schoolData.getAcademicOpportunities1().contains(searchParams.getFilterByOptionQuery())) {
+            if (schoolData.getAcademicOpportunities1().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
-            } else if (schoolData.getAcademicOpportunities2().contains(searchParams.getFilterByOptionQuery())) {
+            } else if (schoolData.getAcademicOpportunities2().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
-            } else if (schoolData.getAcademicOpportunities3().contains(searchParams.getFilterByOptionQuery())) {
+            } else if (schoolData.getAcademicOpportunities3().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
-            } else if (schoolData.getAcademicOpportunities4().contains(searchParams.getFilterByOptionQuery())) {
+            } else if (schoolData.getAcademicOpportunities4().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
-            } else if (schoolData.getAcademicOpportunities5().contains(searchParams.getFilterByOptionQuery())) {
+            } else if (schoolData.getAcademicOpportunities5().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
             }
         } catch (NullPointerException e) {
@@ -241,13 +241,13 @@ public final class FilterUtils {
 
     private static void filterSchoolDataBySports(ISearchParams searchParams,ISchoolData schoolData, List<ISchoolData> list) {
         try {
-            if (schoolData.getSchoolSports().contains(searchParams.getFilterByOptionQuery())) {
+            if (schoolData.getSchoolSports().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
-            } else if (schoolData.getSportsBoys().contains(searchParams.getFilterByOptionQuery())) {
+            } else if (schoolData.getSportsBoys().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
-            } else if (schoolData.getSportsGirls().contains(searchParams.getFilterByOptionQuery())) {
+            } else if (schoolData.getSportsGirls().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
-            } else if (schoolData.getSportsCoed().contains(searchParams.getFilterByOptionQuery())) {
+            } else if (schoolData.getSportsCoed().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
                 list.add(schoolData);
             }
         } catch (NullPointerException e) {

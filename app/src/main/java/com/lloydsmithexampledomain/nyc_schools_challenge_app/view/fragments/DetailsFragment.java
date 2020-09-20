@@ -1,7 +1,6 @@
 package com.lloydsmithexampledomain.nyc_schools_challenge_app.view.fragments;
 
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.BulletSpan;
@@ -90,6 +89,7 @@ public class DetailsFragment extends BaseFragment implements IDetailsFragment {
             mBinding.fab.setOnClickListener(v -> showFabItems());
             mBinding.fabWebsite.setOnClickListener(v -> SchoolDetailsHelper.goToWebsite(activity, mCompleteSchoolData));
             mBinding.fabLocation.setOnClickListener(v -> SchoolDetailsHelper.goToLocation(activity, mCompleteSchoolData));
+            mBinding.fabCall.setOnClickListener(v -> SchoolDetailsHelper.goToDialPad(activity, mCompleteSchoolData));
 
             setFabVisibility();
         }
@@ -149,7 +149,10 @@ public class DetailsFragment extends BaseFragment implements IDetailsFragment {
     }
 
     private void setFabVisibility() {
-        int visibility = isFabLocationDataAvailable() || StringUtils.isNotBlank(mCompleteSchoolData.getWebsite()) ? View.VISIBLE : View.GONE;
+        int visibility = isFabLocationDataAvailable()
+                || StringUtils.isNotBlank(mCompleteSchoolData.getWebsite())
+                || StringUtils.isNotBlank(mCompleteSchoolData.getPhoneNumber())
+                ? View.VISIBLE : View.GONE;
         mBinding.fab.setVisibility(visibility);
     }
 
@@ -162,6 +165,11 @@ public class DetailsFragment extends BaseFragment implements IDetailsFragment {
         if (StringUtils.isNotBlank(mCompleteSchoolData.getWebsite())) {
             int visibility = mBinding.fabWebsite.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE;
             mBinding.fabWebsite.setVisibility(visibility);
+        }
+
+        if (StringUtils.isNotBlank(mCompleteSchoolData.getPhoneNumber())) {
+            int visibility = mBinding.fabCall.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE;
+            mBinding.fabCall.setVisibility(visibility);
         }
     }
 

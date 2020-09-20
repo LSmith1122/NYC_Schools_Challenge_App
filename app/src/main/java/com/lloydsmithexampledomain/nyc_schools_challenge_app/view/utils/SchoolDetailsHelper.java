@@ -58,6 +58,17 @@ public final class SchoolDetailsHelper {
         }
     }
 
+    public static void goToDialPad(BaseActivity activity, ISchoolData schoolData) {
+        if (StringUtils.isNotBlank(schoolData.getPhoneNumber())) {
+            Intent dialNumber = new Intent(Intent.ACTION_DIAL);
+            dialNumber.setData(Uri.parse("tel:" + schoolData.getPhoneNumber()));
+            activity.startActivity(dialNumber);
+        } else {
+            Log.e(TAG, "goToWebsite: School Name must not be null", new NullPointerException());
+            showError(activity);
+        }
+    }
+
     public static boolean isLocationPrimaryAvailable(ISchoolData schoolData) {
         return StringUtils.isNotBlank(schoolData.getSchoolName())
                 && StringUtils.isNotBlank(schoolData.getLatitude())
@@ -78,19 +89,19 @@ public final class SchoolDetailsHelper {
         }
         if (StringUtils.isNotBlank(schoolData.getCity())) {
             if (StringUtils.isNotBlank(schoolData.getPrimaryAddressLine())) {
-                output.append(",\\s");
+                output.append(", ");
             }
             output.append(schoolData.getCity());
         }
         if (StringUtils.isNotBlank(schoolData.getStateCode())) {
             if (StringUtils.isNotBlank(schoolData.getPrimaryAddressLine()) || StringUtils.isNotBlank(schoolData.getCity())) {
-                output.append(",\\s");
+                output.append(", ");
             }
             output.append(schoolData.getStateCode());
         }
         if (StringUtils.isNotBlank(schoolData.getPostcode())) {
             if (StringUtils.isNotBlank(schoolData.getPrimaryAddressLine()) || StringUtils.isNotBlank(schoolData.getCity()) || StringUtils.isNotBlank(schoolData.getStateCode())) {
-                output.append(",\\s");
+                output.append(", ");
             }
             output.append(schoolData.getPostcode());
         }

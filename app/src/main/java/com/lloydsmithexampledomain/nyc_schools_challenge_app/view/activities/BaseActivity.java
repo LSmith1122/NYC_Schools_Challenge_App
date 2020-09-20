@@ -25,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showInformationalDialog(String message, DialogInterface.OnClickListener neutral) {
-        mDialog = createInformationalDialog(message, false).create();
+        mDialog = createInformationalDialog(message, false, null, neutral, null).create();
         if (mDialog != null) {
             mDialog.show();
         }

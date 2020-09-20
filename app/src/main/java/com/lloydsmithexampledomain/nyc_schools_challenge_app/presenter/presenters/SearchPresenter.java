@@ -28,9 +28,9 @@ public class SearchPresenter implements ISearchPresenter {
 
     protected IResultsFragmentView mResultsFragmentView;
     protected ISearchParams mSearchParams;
-    protected List<ISchoolData> mCachedSchoolData = new ArrayList<>();
-    protected volatile LinkedHashMap<String, ISATData> mCachedSATData = new LinkedHashMap<>(); // dbn, ISATData
-    protected ISchoolDataCallback<List<ISchoolData>> getAllSchoolsCallback = new ISchoolDataCallback<List<ISchoolData>>() {
+    protected static volatile  List<ISchoolData> mCachedSchoolData = new ArrayList<>();
+    protected static volatile LinkedHashMap<String, ISATData> mCachedSATData = new LinkedHashMap<>(); // dbn, ISATData
+    protected volatile ISchoolDataCallback<List<ISchoolData>> getAllSchoolsCallback = new ISchoolDataCallback<List<ISchoolData>>() {
         @Override
         public void onSuccess(List<ISchoolData> schoolDataList, int httpResponseCode) {
             mCachedSchoolData = schoolDataList;
@@ -42,7 +42,7 @@ public class SearchPresenter implements ISearchPresenter {
             mResultsFragmentView.onSearchError(null, httpResponseCode);
         }
     };
-    protected ISchoolDataCallback<ISATData> mSearchForACTDataCallback = new ISchoolDataCallback<ISATData>() {
+    protected volatile ISchoolDataCallback<ISATData> mSearchForACTDataCallback = new ISchoolDataCallback<ISATData>() {
         @Override
         public void onSuccess(ISATData satData, int httpResponseCode) {
             if (satData != null && satData.getDbn() != null

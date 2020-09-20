@@ -59,7 +59,7 @@ public class ResultsFragment extends BaseFragment implements IResultsFragmentVie
     public void onSchoolSearchComplete(List<ISchoolData> schoolDataList) {
         hideDialog();
         if (schoolDataList.isEmpty()) {
-            showInformationalDialog(getString(R.string.error_unexpected_error));
+            showErrorDialog(getString(R.string.error_unexpected_error));
             return;
         }
         SchoolResultsAdapter adapter = new SchoolResultsAdapter(getContext(), schoolDataList);
@@ -84,7 +84,7 @@ public class ResultsFragment extends BaseFragment implements IResultsFragmentVie
         if (StringUtils.isBlank(errorMessage)) {
             errorMessage = getString(R.string.error_unexpected_error);
         }
-        showInformationalDialog(String.format(Locale.getDefault(), "%s\n\nResponse Code: %d", errorMessage, httpCode));
+        showErrorDialog(String.format(Locale.getDefault(), "%s\n\nResponse Code: %d", errorMessage, httpCode));
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ResultsFragment extends BaseFragment implements IResultsFragmentVie
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBinding = FragmentResultsBinding.inflate(inflater, container, false);
-        mBinding.helpButton.setOnClickListener(v -> showInformationalDialog(getString(R.string.results_help)));
+        mBinding.helpButton.setOnClickListener(v -> showInformationalDialog(getString(R.string.results_help), false));
         updateResults(mSearchParams);
         return mBinding.getRoot();
     }

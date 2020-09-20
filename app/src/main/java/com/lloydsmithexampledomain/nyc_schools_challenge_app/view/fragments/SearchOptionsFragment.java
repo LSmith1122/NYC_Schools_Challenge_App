@@ -101,8 +101,8 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
 
         // Set OnEditorActionListeners for Special Actions on EditTexts
         mBinding.mainSearchByNameEdittext.setOnEditorActionListener(mOnEditorActionListenerForSearch);
-        mBinding.mainActivityFilterLimitByEdittext.setOnEditorActionListener(mOnEditorActionListenerDefault);
-        mBinding.mainActivityFilterFilterByEdittext.setOnEditorActionListener(mOnEditorActionListenerForSearch);
+        mBinding.mainActivityFilterFilterByEdittext.setOnEditorActionListener(mOnEditorActionListenerDefault);
+        mBinding.mainActivityFilterLimitByEdittext.setOnEditorActionListener(mOnEditorActionListenerForSearch);
 
         // Initialize Spinners
         initSpinner(mBinding.mainActivityFilterSortByDropdown, mSortByItems);
@@ -200,7 +200,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
 
     boolean populateSearchOptions(boolean showError) {
         if (mSearchParams == null) {
-            showInformationalDialog(getString(R.string.error_unexpected_error));
+            showErrorDialog(getString(R.string.error_unexpected_error));
             return false;
         }
         if (mSearchParams.getSearchTypeOption() == SearchTypeOption.SEARCH_BY_NAME) {
@@ -209,7 +209,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
                 return true;
             }
             if (showError) {
-                showInformationalDialog(getString(R.string.main_activity_error_missing_name_criteria));
+                showErrorDialog(getString(R.string.main_activity_error_missing_name_criteria));
             }
             return false;
         } else {
@@ -246,7 +246,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
 
                 if (!isDataAvailable) {
                     if (showError) {
-                        showInformationalDialog(getString(R.string.main_activity_error_missing_filter_criteria));
+                        showErrorDialog(getString(R.string.main_activity_error_missing_filter_criteria));
                     }
                     return false;
                 }
@@ -261,7 +261,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
             }
         }
         if (showError) {
-            showInformationalDialog(getString(R.string.main_activity_error_missing_filter_criteria));
+            showErrorDialog(getString(R.string.main_activity_error_missing_filter_criteria));
         }
         return false;
     }
