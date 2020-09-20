@@ -34,17 +34,17 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
 
     public static final String TAG = "MainFragment";
 
-    private FragmentSearchOptionsBinding mBinding;
-    private SearchParams mSearchParams;
-    private String[] mSortByItems;
-    private String[] mFilterByItems;
-    private String[] mLimitByItems;
-    private String[] mResultsMaxCountItems;
-    private ISearchListener mListener;
-    private TextView.OnEditorActionListener mOnEditorActionListenerForSearch = (textView, actionID, keyEvent) -> {
+    protected FragmentSearchOptionsBinding mBinding;
+    protected SearchParams mSearchParams;
+    protected String[] mSortByItems;
+    protected String[] mFilterByItems;
+    protected String[] mLimitByItems;
+    protected String[] mResultsMaxCountItems;
+    protected ISearchListener mListener;
+    protected TextView.OnEditorActionListener mOnEditorActionListenerForSearch = (textView, actionID, keyEvent) -> {
         if (actionID == EditorInfo.IME_ACTION_SEARCH) {
             if (getActivity() instanceof BaseActivity) {
-                hideKeyboard((BaseActivity) getActivity());
+                hideKeyboard();
             }
             searchForSchools();
             return true;
@@ -53,7 +53,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
     };
     private TextView.OnEditorActionListener mOnEditorActionListenerDefault = (textView, actionID, keyEvent) -> {
         if (actionID == EditorInfo.IME_ACTION_DONE && getActivity() instanceof BaseActivity) {
-            hideKeyboard((BaseActivity) getActivity());
+            hideKeyboard();
             return true;
         }
         return false;
@@ -274,9 +274,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
 
         // Launch Results Fragment by signaling the Activity
         if (populateSearchOptions(true)) {
-            if (getActivity() instanceof BaseActivity) {
-                hideKeyboard((BaseActivity) getActivity());
-            }
+            hideKeyboard();
             mListener.onSearch(mSearchParams);
         }
     }
@@ -306,7 +304,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
     @Override
     public String[] getDisplayNamesForSortByOption() {
         String[] array = new String[SortByOption.values().length + 1];
-        array[0] = "";
+        array[0] = getString(R.string.no_selection);
         int index = 0;
         for (SortByOption option : SortByOption.values()) {
             array[index + 1] = getString(option.getStringID());
@@ -319,7 +317,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
     @Override
     public String[] getDisplayNamesForFilterByOption() {
         String[] array = new String[FilterByOption.values().length + 1];
-        array[0] = "";
+        array[0] = getString(R.string.no_selection);
         int index = 0;
         for (FilterByOption option : FilterByOption.values()) {
             array[index + 1] = getString(option.getStringID());
@@ -332,7 +330,7 @@ public class SearchOptionsFragment extends BaseFragment implements ISearchOption
     @Override
     public String[] getDisplayNamesForLimitTypeOption() {
         String[] array = new String[LimitTypeOption.values().length + 1];
-        array[0] = "";
+        array[0] = getString(R.string.no_selection);
         int index = 0;
         for (LimitTypeOption option : LimitTypeOption.values()) {
             array[index + 1] = getString(option.getStringID());

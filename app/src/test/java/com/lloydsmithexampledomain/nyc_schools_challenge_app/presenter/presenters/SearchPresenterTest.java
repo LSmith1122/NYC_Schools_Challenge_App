@@ -7,6 +7,7 @@ import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enu
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.activities.BaseTest;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.contracts.IResultsFragmentView;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,6 +36,17 @@ public class SearchPresenterTest extends BaseTest {
         mSearchPresenter = new SearchPresenter();
         mSearchPresenter.mResultsFragmentView = mFragmentView;
         mSearchPresenter.mSchoolService = mock(SchoolDataService.class);
+    }
+
+    @After
+    public void tearDown() {
+        if (mSearchPresenter.mResultsFragmentView != null) {
+            reset(mSearchPresenter.mResultsFragmentView);
+        }
+        if (mSearchPresenter.mSchoolService != null) {
+            reset(mSearchPresenter.mSchoolService);
+        }
+        mSearchPresenter = null;
     }
 
     @Test

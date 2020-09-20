@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.R;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.databinding.FragmentResultsBinding;
@@ -80,6 +81,16 @@ public class ResultsFragment extends BaseFragment implements IResultsFragmentVie
     }
 
     @Override
+    public void onNoSATDetailsFound(ISchoolData schoolData) {
+        // No Data found for DBN - rare, I know...
+        hideDialog();
+        Toast.makeText(getContext(), "No SAT Data found", Toast.LENGTH_SHORT).show();
+        if (mListener != null) {
+            mListener.onCompleteDetailsRetrieved(schoolData);
+        }
+    }
+
+    @Override
     public void onSearchError(String errorMessage, int httpCode) {
         if (StringUtils.isBlank(errorMessage)) {
             errorMessage = getString(R.string.error_unexpected_error);
@@ -105,7 +116,7 @@ public class ResultsFragment extends BaseFragment implements IResultsFragmentVie
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBinding = FragmentResultsBinding.inflate(inflater, container, false);
-        mBinding.helpButton.setOnClickListener(v -> showInformationalDialog(getString(R.string.results_help), false));
+        mBinding.helpButton.setOnClickListener(v -> showInformationalDialog(getString(R.string.results_help), true));
         updateResults(mSearchParams);
         return mBinding.getRoot();
     }

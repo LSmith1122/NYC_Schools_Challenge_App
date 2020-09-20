@@ -28,6 +28,7 @@ public class SearchPresenter implements ISearchPresenter {
 
     protected IResultsFragmentView mResultsFragmentView;
     protected ISearchParams mSearchParams;
+    protected String mCurrentDbnForSATDetails;
     protected static volatile  List<ISchoolData> mCachedSchoolData = new ArrayList<>();
     protected static volatile LinkedHashMap<String, ISATData> mCachedSATData = new LinkedHashMap<>(); // dbn, ISATData
     protected volatile ISchoolDataCallback<List<ISchoolData>> getAllSchoolsCallback = new ISchoolDataCallback<List<ISchoolData>>() {
@@ -50,6 +51,16 @@ public class SearchPresenter implements ISearchPresenter {
                     && satData.getSatReadingAvgScore() != null
                     && satData.getSatWritingAvgScore() != null) {
                 mCachedSATData.put(satData.getDbn(), satData);
+            } else {
+                // No Data found for DBN - rare, I know...
+                for (ISchoolData schoolData : mCachedSchoolData) {
+                    if (schoolData.getDbn().equals(mCurrentDbnForSATDetails)) {
+                        mResultsFragmentView.onNoSATDetailsFound(schoolData);
+                        return;
+                    }
+                }
+                mResultsFragmentView.onSearchError(null, httpResponseCode);
+                return;
             }
             processAndDeliverSchoolData(satData);
         }
@@ -103,7 +114,7 @@ public class SearchPresenter implements ISearchPresenter {
     }
 
     @Override
-    public synchronized void searchForSchools(ISearchParams searchParams) {
+    public void searchForSchools(ISearchParams searchParams) {
         this.mSearchParams = searchParams;
         if (mResultsFragmentView != null) {
             if (mCachedSchoolData == null || mCachedSchoolData.isEmpty()) {
@@ -115,14 +126,16 @@ public class SearchPresenter implements ISearchPresenter {
     }
 
     @Override
-    public synchronized void searchForACTData(String dbn) {
+    public void searchForACTData(String dbn) {
         if (StringUtils.isBlank(dbn)) {
             mResultsFragmentView.onSearchError(null, 400);
             return;
         }
 
+        mCurrentDbnForSATDetails = dbn;
+
         if (!mCachedSATData.containsKey(dbn)) {
-            mSchoolService.getACTDataForDbn(dbn, mSearchForACTDataCallback);
+            mSchoolService.getACTDataForDbn(mCurrentDbnForSATDetails, mSearchForACTDataCallback);
         } else {
             ISATData actDataForDbn = mCachedSATData.get(dbn);
             processAndDeliverSchoolData(actDataForDbn);

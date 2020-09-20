@@ -1,22 +1,24 @@
 package com.lloydsmithexampledomain.nyc_schools_challenge_app.view.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.fragment.app.Fragment;
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.R;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.activities.BaseActivity;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.utils.AppHelper;
 
 public abstract class BaseFragment extends Fragment {
-
-    protected AlertDialog mDialog;
 
     protected void showProgressDialog() {
         showInformationalDialog(getString(R.string.please_wait), false);
     }
 
-    protected void showInformationalDialog(String message) {
+    protected void showProgressDialog(String message) {
         showInformationalDialog(message, false);
     }
 
@@ -24,24 +26,39 @@ public abstract class BaseFragment extends Fragment {
         showInformationalDialog(message, true);
     }
 
-    protected void showInformationalDialog(String message, boolean isError) {
-        if (getActivity() != null) {
+    protected void showInformationalDialog(String message, boolean isDismissible) {
+        if (getContext() != null) {
             DialogInterface.OnClickListener onClickListener = null;
-            if (isError) {
+            if (isDismissible) {
                 onClickListener = (dialog, which) -> dialog.dismiss();
             }
-            ((BaseActivity) getActivity()).showInformationalDialog(message, onClickListener);
+            AppHelper.showInformationalDialog(getContext(), message, onClickListener);
+        }
+    }
+
+    protected void showInformationalDialog(String message, DialogInterface.OnClickListener okButtonListener) {
+        if (getContext() != null) {
+            AppHelper.showInformationalDialog(getContext(), message, okButtonListener);
         }
     }
 
     protected void hideDialog() {
-        if (getActivity() != null) {
-            ((BaseActivity) getActivity()).hideDialog();
+        if (getActivity() != null && getActivity() instanceof BaseActivity) {
+            AppHelper.hideDialog();
         }
     }
 
-    protected void hideKeyboard(BaseActivity activity) {
-        activity.hideKeyboard();
+    public void hideKeyboard() {
+        if (getActivity() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            if (inputMethodManager != null) {
+                View view = getActivity().getCurrentFocus();
+                if (view == null) {
+                    view = new View(getContext());
+                }
+                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
     }
 
 }

@@ -51,7 +51,7 @@ public class FilterUtilsTest extends BaseTest {
         actual.add(schoolData2);
 
         // When
-        boolean finishedFiltering = FilterUtils.sortSchoolData(SearchTypeOption.SEARCH_BY_NAME, actual, SortByOption.ALPHA_SCHOOL_NAME_AZ);
+        boolean finishedFiltering = FilterUtils.sortSchoolData(actual, SortByOption.ALPHA_SCHOOL_NAME_AZ);
 
         // Then
         assertTrue(finishedFiltering);
@@ -89,7 +89,7 @@ public class FilterUtilsTest extends BaseTest {
         actual.add(schoolData2);
 
         // When
-        boolean finishedFiltering = FilterUtils.sortSchoolData(SearchTypeOption.SEARCH_BY_NAME, actual, SortByOption.ALPHA_SCHOOL_NAME_ZA);
+        boolean finishedFiltering = FilterUtils.sortSchoolData(actual, SortByOption.ALPHA_SCHOOL_NAME_ZA);
 
         // Then
         assertTrue(finishedFiltering);
@@ -130,7 +130,7 @@ public class FilterUtilsTest extends BaseTest {
         actual.add(schoolData2);
 
         // When
-        boolean finishedFiltering = FilterUtils.sortSchoolData(SearchTypeOption.SEARCH_BY_NAME, actual, SortByOption.ALPHA_CITY_AZ);
+        boolean finishedFiltering = FilterUtils.sortSchoolData(actual, SortByOption.ALPHA_CITY_AZ);
 
         // Then
         assertTrue(finishedFiltering);
@@ -174,7 +174,7 @@ public class FilterUtilsTest extends BaseTest {
         actual.add(schoolData2);
 
         // When
-        boolean finishedFiltering = FilterUtils.sortSchoolData(SearchTypeOption.SEARCH_BY_NAME, actual, SortByOption.ALPHA_CITY_ZA);
+        boolean finishedFiltering = FilterUtils.sortSchoolData(actual, SortByOption.ALPHA_CITY_ZA);
 
         // Then
         assertTrue(finishedFiltering);
@@ -218,7 +218,7 @@ public class FilterUtilsTest extends BaseTest {
         actual.add(schoolData2);
 
         // When
-        boolean finishedFiltering = FilterUtils.sortSchoolData(SearchTypeOption.SEARCH_BY_NAME, actual, SortByOption.GRADUATION_RATE_DESC);
+        boolean finishedFiltering = FilterUtils.sortSchoolData(actual, SortByOption.GRADUATION_RATE_DESC);
 
         // Then
         assertTrue(finishedFiltering);
@@ -262,7 +262,7 @@ public class FilterUtilsTest extends BaseTest {
         actual.add(schoolData2);
 
         // When
-        boolean finishedFiltering = FilterUtils.sortSchoolData(SearchTypeOption.SEARCH_BY_NAME, actual, SortByOption.GRADUATION_RATE_ASC);
+        boolean finishedFiltering = FilterUtils.sortSchoolData(actual, SortByOption.GRADUATION_RATE_ASC);
 
         // Then
         assertTrue(finishedFiltering);

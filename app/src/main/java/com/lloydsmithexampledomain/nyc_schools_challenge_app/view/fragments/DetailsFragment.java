@@ -69,6 +69,8 @@ public class DetailsFragment extends BaseFragment implements IDetailsFragment {
                 mBinding.detailsSatScoreReading.setText(String.valueOf(mCompleteSchoolData.getSATForReading()));
                 mBinding.detailsSatScoreWriting.setText(String.valueOf(mCompleteSchoolData.getSATForWriting()));
                 mBinding.detailsSatScoreMath.setText(String.valueOf(mCompleteSchoolData.getSATForMath()));
+            } else {
+                mBinding.detailsSatGroup.setVisibility(View.GONE);
             }
 
             // Academics
@@ -80,7 +82,12 @@ public class DetailsFragment extends BaseFragment implements IDetailsFragment {
 
             // Sports
             if (isAcademicsDataAvailable(mCompleteSchoolData)) {
-                mBinding.detailsSports.setText(getSportsDisplayString(mCompleteSchoolData), TextView.BufferType.SPANNABLE);
+                SpannableStringBuilder sportsDisplayString = getSportsDisplayString(mCompleteSchoolData);
+                if (StringUtils.isBlank(sportsDisplayString)) {
+                    mBinding.detailsSportsGroup.setVisibility(View.GONE);
+                } else {
+                    mBinding.detailsSports.setText(sportsDisplayString, TextView.BufferType.SPANNABLE);
+                }
             } else {
                 mBinding.detailsSportsGroup.setVisibility(View.GONE);
             }
@@ -92,7 +99,7 @@ public class DetailsFragment extends BaseFragment implements IDetailsFragment {
                 mBinding.detailsAdditionalInformationGroup.setVisibility(View.GONE);
             }
 
-            mBinding.detailsSchoolAddress.setOnClickListener(v -> SchoolDetailsHelper.goToWebsite(activity, mCompleteSchoolData));
+            mBinding.detailsSchoolAddress.setOnClickListener(v -> SchoolDetailsHelper.goToLocation(activity, mCompleteSchoolData));
             mBinding.fab.setOnClickListener(v -> showFabItems());
             mBinding.fabWebsite.setOnClickListener(v -> SchoolDetailsHelper.goToWebsite(activity, mCompleteSchoolData));
             mBinding.fabLocation.setOnClickListener(v -> SchoolDetailsHelper.goToLocation(activity, mCompleteSchoolData));

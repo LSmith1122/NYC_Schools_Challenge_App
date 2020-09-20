@@ -11,5 +11,6 @@ public interface IResultsFragmentView extends IFragmentView {
     void updateResults(ISearchParams searchParams);
     void onSchoolSearchComplete(List<ISchoolData> schoolDataList);
     void onSATDetailsSearchComplete(ISchoolData completeSchoolData);
+    void onNoSATDetailsFound(ISchoolData schoolData);
     void onSearchError(String errorMessage, int httpCode);
 }

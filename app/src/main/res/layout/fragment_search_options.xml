@@ -70,9 +70,10 @@
                     android:text="@string/main_activity_search_text_description"
                     android:layout_margin="@dimen/main_activity_title_margin"/>
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <EditText
                     android:id="@+id/main_search_by_name_edittext"
                     style="@style/EditText.Search"/>
+
 
             </LinearLayout>
 
@@ -133,7 +134,7 @@
                         app:layout_constraintLeft_toRightOf="@+id/main_activity_spinner_description_filter_by_header"
                         app:layout_constraintRight_toRightOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <EditText
                         android:id="@+id/main_activity_filter_filter_by_edittext"
                         style="@style/EditText.SearchOption.Done"
                         tools:hint="25%"
@@ -165,7 +166,7 @@
                         app:layout_constraintLeft_toRightOf="@+id/main_activity_spinner_description_limit_by"
                         app:layout_constraintRight_toRightOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <EditText
                         android:id="@+id/main_activity_filter_limit_by_edittext"
                         style="@style/EditText.SearchOption.Search"
                         tools:hint="25%"

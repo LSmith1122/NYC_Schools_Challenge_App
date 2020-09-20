@@ -84,9 +84,13 @@ public class SchoolDataService implements ISchoolDataService {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
                     callback.onSuccess(response.body().get(0), response.code());
                 } else {
-                    NullPointerException throwable = new NullPointerException("Null response or body.");
-                    Log.e(TAG, "onResponse: getACTDataForDbn", throwable);
-                    callback.onError(response.code(), throwable);
+                    if (response.isSuccessful()) {
+                        callback.onSuccess(null, response.code());
+                    } else {
+                        NullPointerException throwable = new NullPointerException("Null response or body.");
+                        Log.e(TAG, "onResponse: getACTDataForDbn", throwable);
+                        callback.onError(response.code(), throwable);
+                    }
                 }
             }
 

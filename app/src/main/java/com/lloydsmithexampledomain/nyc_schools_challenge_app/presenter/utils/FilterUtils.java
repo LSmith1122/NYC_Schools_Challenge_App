@@ -36,8 +36,6 @@ public final class FilterUtils {
     public static List<ISchoolData> filterSchoolData(ISearchParams searchParams, List<ISchoolData> schoolDataList) {
         final List<ISchoolData> list = new ArrayList<>();
         if (isDataForFilterInvalid(
-                SearchTypeOption.SEARCH_BY_FILTER,
-                searchParams.getSearchTypeOption(),
                 schoolDataList,
                 searchParams.getSortByOption(),
                 searchParams.getFilterByOption(),
@@ -73,7 +71,7 @@ public final class FilterUtils {
             list.addAll(schoolDataList);
         }
         if (!list.isEmpty()) {
-            sortSchoolData(searchParams.getSearchTypeOption(), list, searchParams.getSortByOption());
+            sortSchoolData(list, searchParams.getSortByOption());
         }
 
         return list;
@@ -142,8 +140,8 @@ public final class FilterUtils {
         }
     }
 
-    public static boolean sortSchoolData(SearchTypeOption searchTypeOption, List<ISchoolData> schoolDataList, SortByOption sortByOption) {
-        if (isDataForFilterInvalid(SearchTypeOption.SEARCH_BY_NAME, searchTypeOption, schoolDataList, sortByOption)) {
+    public static boolean sortSchoolData(List<ISchoolData> schoolDataList, SortByOption sortByOption) {
+        if (isDataForFilterInvalid(schoolDataList, sortByOption)) {
             return false;
         }
 
@@ -157,9 +155,9 @@ public final class FilterUtils {
             case ALPHA_CITY_ZA:
                 return sortBySchoolCityAlphabetically(schoolDataList, true);
             case GRADUATION_RATE_DESC:
-                return sortBySchoolGraduationRateAlphabetically(schoolDataList, true);
+                return sortBySchoolGraduationRate(schoolDataList, true);
             case GRADUATION_RATE_ASC:
-                return sortBySchoolGraduationRateAlphabetically(schoolDataList, false);
+                return sortBySchoolGraduationRate(schoolDataList, false);
         }
         return false;
     }
@@ -194,14 +192,14 @@ public final class FilterUtils {
         return true;
     }
 
-    private static boolean sortBySchoolGraduationRateAlphabetically(List<ISchoolData> schoolDataList, boolean shouldAscend) {
+    private static boolean sortBySchoolGraduationRate(List<ISchoolData> schoolDataList, boolean shouldAscend) {
         if (schoolDataList == null || schoolDataList.isEmpty()) {
             return false;
         }
 
         Collections.sort(schoolDataList, (school1, school2) -> {
-            Double graduationRatePercentage1 = school2.getGraduationRatePercentage() != null ? school2.getGraduationRatePercentage() : 0;
-            Double graduationRatePercentage2 = school1.getGraduationRatePercentage() != null ? school1.getGraduationRatePercentage() : 0;
+            Double graduationRatePercentage1 = school2.getGraduationRatePercentage() != null ? school2.getGraduationRatePercentage() : -1;
+            Double graduationRatePercentage2 = school1.getGraduationRatePercentage() != null ? school1.getGraduationRatePercentage() : -1;
             if (shouldAscend) {
                 return graduationRatePercentage1.compareTo(graduationRatePercentage2);
             } else {
@@ -255,7 +253,7 @@ public final class FilterUtils {
         }
     }
 
-    static boolean isDataForFilterInvalid(SearchTypeOption expectedOption, SearchTypeOption searchTypeOption, List<ISchoolData> schoolDataList, Enum<?>... enumOptions) {
+    static boolean isDataForFilterInvalid(List<ISchoolData> schoolDataList, Enum<?>... enumOptions) {
         boolean hasEnumOption = false;
         for (Enum<?> enumOption : enumOptions) {
             if (enumOption != null) {
@@ -265,7 +263,6 @@ public final class FilterUtils {
         }
         return schoolDataList == null
                 || schoolDataList.isEmpty()
-                || !hasEnumOption
-                || expectedOption != searchTypeOption;
+                || !hasEnumOption;
     }
 }
