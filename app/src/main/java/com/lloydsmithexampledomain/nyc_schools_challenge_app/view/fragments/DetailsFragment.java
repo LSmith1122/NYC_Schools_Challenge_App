@@ -48,6 +48,13 @@ public class DetailsFragment extends BaseFragment implements IDetailsFragment {
                 mBinding.detailsSchoolAddress.setVisibility(View.GONE);
             }
 
+            // Start / End Time
+            if (StringUtils.isNotBlank(mCompleteSchoolData.getStartTime()) && StringUtils.isNotBlank(mCompleteSchoolData.getEndTime())) {
+                mBinding.detailsSchoolStartEndTime.setText(String.format("%s - %s", mCompleteSchoolData.getStartTime(), mCompleteSchoolData.getEndTime()));
+            } else {
+                mBinding.detailsSchoolStartEndTime.setVisibility(View.GONE);
+            }
+
             // Overview
             if (StringUtils.isNotBlank(mCompleteSchoolData.getOverviewParagraph())) {
                 mBinding.detailsOverview.setText(mCompleteSchoolData.getOverviewParagraph());
