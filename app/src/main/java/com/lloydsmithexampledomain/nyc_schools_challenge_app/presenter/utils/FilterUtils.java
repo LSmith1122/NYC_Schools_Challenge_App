@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchParams;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.SearchTypeOption;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.SortByOption;
 
 import java.util.ArrayList;
@@ -56,8 +55,9 @@ public final class FilterUtils {
                 boolean isFilterSuccessful = true;
                 if (searchParams.getLimitByOption() != null) {
                     hasFilters = true;
-                    isLimitSuccessful = limitSchoolData(searchParams, list, schoolData);
+                    isLimitSuccessful = limitSchoolData(searchParams, schoolData);
                 }
+
                 if (searchParams.getFilterByOption() != null) {
                     hasFilters = true;
                     isFilterSuccessful = filterSchoolData(searchParams, list, schoolData);
@@ -83,51 +83,48 @@ public final class FilterUtils {
         return list;
     }
 
-    private static boolean limitSchoolData(ISearchParams searchParams, List<ISchoolData> list, ISchoolData schoolData) {
+    private static boolean limitSchoolData(ISearchParams searchParams, ISchoolData schoolData) {
         Double graduationRatePercentage = schoolData.getGraduationRatePercentage();
-        Integer totalStudents = schoolData.getTotalStudents();
+        Double studentSafetyPercentage = schoolData.getStudentSafetyPercentage();
         switch (searchParams.getLimitByOption()) {
             case GRADUATION_RATE_MIN:
                 if (graduationRatePercentage == null) {
                     return false;
                 }
-                int queryAmountMin = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                double dataMin = Math.floor(graduationRatePercentage * 100);
-                return limitSchoolDataByAmount(list, schoolData, dataMin, queryAmountMin, true);
+                int queryAmountMinGraduationRate = Integer.parseInt(searchParams.getLimitByOptionQuery());
+                double dataMinGraduationRate = Math.floor(graduationRatePercentage * 100);
+                return limitSchoolDataByAmount(dataMinGraduationRate, queryAmountMinGraduationRate, true);
             case GRADUATION_RATE_MAX:
                 if (graduationRatePercentage == null) {
                     return false;
                 }
-                int queryAmountMax = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                double dataMax = Math.floor(graduationRatePercentage * 100);
-                return limitSchoolDataByAmount(list, schoolData, dataMax, queryAmountMax, false);
-            case TOTAL_STUDENTS_MIN:
-                if (totalStudents == null) {
+                int queryAmountMaxGraduationRate = Integer.parseInt(searchParams.getLimitByOptionQuery());
+                double dataMaxGraduationRate = Math.floor(graduationRatePercentage * 100);
+                return limitSchoolDataByAmount(dataMaxGraduationRate, queryAmountMaxGraduationRate, false);
+            case STUDENT_SAFETY_MIN:
+                if (studentSafetyPercentage == null) {
                     return false;
                 }
-                int totalStudentsQueryAmountMin = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                return limitSchoolDataByAmount(list, schoolData, totalStudents, totalStudentsQueryAmountMin, true);
-            case TOTAL_STUDENTS_MAX:
-                if (totalStudents == null) {
+                int queryAmountMinStudentSafety = Integer.parseInt(searchParams.getLimitByOptionQuery());
+                double dataMin = Math.floor(studentSafetyPercentage * 100);
+                return limitSchoolDataByAmount(dataMin, queryAmountMinStudentSafety, true);
+            case STUDENT_SAFETY_MAX:
+                if (studentSafetyPercentage == null) {
                     return false;
                 }
-                int totalStudentsQueryAmountMax = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                return limitSchoolDataByAmount(list, schoolData, totalStudents, totalStudentsQueryAmountMax, false);
+                int queryAmountStudentSafety = Integer.parseInt(searchParams.getLimitByOptionQuery());
+                double dataMax = Math.floor(studentSafetyPercentage * 100);
+                return limitSchoolDataByAmount(dataMax, queryAmountStudentSafety, false);
         }
         return false;
     }
 
-    private static boolean limitSchoolDataByAmount(List<ISchoolData> list, ISchoolData schoolData, double data, int queryAmount, boolean isMin) {
+    private static boolean limitSchoolDataByAmount(double data, int queryAmount, boolean isMin) {
         if (isMin) {
-            if (data >= queryAmount) {
-                return true;
-            }
+            return data >= queryAmount;
         } else {
-            if (data < queryAmount) {
-                return true;
-            }
+            return data < queryAmount;
         }
-        return false;
     }
 
     private static boolean filterSchoolData(ISearchParams searchParams, List<ISchoolData> list, ISchoolData schoolData) {

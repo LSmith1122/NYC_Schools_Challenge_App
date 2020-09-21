@@ -31,10 +31,10 @@
     <string name="filter_by_items_academics">Academics</string>
     <string name="filter_by_items_sports">Sports</string>
 
-    <string name="limit_by_items_graduation_rate_min">Graduation Rate (Min.)</string>
-    <string name="limit_by_items_graduation_rate_max">Graduation Rate (Max.)</string>
-    <string name="limit_by_items_total_students_min">Total Students (Min.)</string>
-    <string name="limit_by_items_total_students_max">Total Students (Max.)</string>
+    <string name="limit_by_items_graduation_rate_min">Graduation Rate (Min. %)</string>
+    <string name="limit_by_items_graduation_rate_max">Graduation Rate (Max. %)</string>
+    <string name="limit_by_items_total_students_min">Student Safety (Min. %)</string>
+    <string name="limit_by_items_total_students_max">Student Safety (Max. %)</string>
     <string name="unlimited">Unlimited</string>
     <!--endregion-->
 

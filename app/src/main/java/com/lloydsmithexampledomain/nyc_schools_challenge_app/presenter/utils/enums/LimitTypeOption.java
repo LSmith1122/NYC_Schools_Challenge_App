@@ -6,8 +6,8 @@ import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interface
 public enum LimitTypeOption implements ISearchOptionEnum {
     GRADUATION_RATE_MIN(R.string.limit_by_items_graduation_rate_min),
     GRADUATION_RATE_MAX(R.string.limit_by_items_graduation_rate_max),
-    TOTAL_STUDENTS_MIN(R.string.limit_by_items_total_students_min),
-    TOTAL_STUDENTS_MAX(R.string.limit_by_items_total_students_max);
+    STUDENT_SAFETY_MIN(R.string.limit_by_items_total_students_min),
+    STUDENT_SAFETY_MAX(R.string.limit_by_items_total_students_max);
 
     private int stringID;
 
