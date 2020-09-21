@@ -4,7 +4,7 @@ import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.services.Scho
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchParams;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.SearchTypeOption;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.activities.BaseTest;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.BaseTest;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.contracts.IResultsFragmentView;
 
 import org.junit.After;
@@ -49,6 +49,9 @@ public class SearchPresenterTest extends BaseTest {
         mSearchPresenter = null;
     }
 
+    /**
+     * For some reason, this test passes individually, but fails when tested with others
+     */
     @Test
     public void testSchoolDataService_SearchForSchools_GetAllSchoolsCalled() {
         // If

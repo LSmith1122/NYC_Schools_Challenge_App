@@ -30,10 +30,10 @@ import javax.inject.Inject;
 public class ResultsFragment extends BaseFragment implements IResultsFragmentView {
 
     private static final String TAG = "ResultsFragment";
-    private static final String ARG_SEARCH_PARAMS = "arg_search_params";
-    private FragmentResultsBinding mBinding;
-    private ISearchListener mListener;
-    private ISearchParams mSearchParams;
+    protected static final String ARG_SEARCH_PARAMS = "arg_search_params";
+    protected FragmentResultsBinding mBinding;
+    protected ISearchListener mListener;
+    protected ISearchParams mSearchParams;
 
     @Inject
     ISearchPresenter mSearchPresenter;
@@ -52,14 +52,18 @@ public class ResultsFragment extends BaseFragment implements IResultsFragmentVie
     @Override
     public void updateResults(ISearchParams searchParams) {
         showProgressDialog();
-        mSearchParams = searchParams;
-        mSearchPresenter.searchForSchools(mSearchParams);
+        if (searchParams != null) {
+            mSearchParams = searchParams;
+            mSearchPresenter.searchForSchools(mSearchParams);
+        } else {
+            onSchoolSearchError(null, 500);
+        }
     }
 
     @Override
     public void onSchoolSearchComplete(List<ISchoolData> schoolDataList) {
         hideDialog();
-        if (schoolDataList.isEmpty()) {
+        if (schoolDataList == null || schoolDataList.isEmpty()) {
             showErrorDialog(getString(R.string.error_unexpected_error));
             return;
         }
@@ -91,7 +95,7 @@ public class ResultsFragment extends BaseFragment implements IResultsFragmentVie
     }
 
     @Override
-    public void onSearchError(String errorMessage, int httpCode) {
+    public void onSchoolSearchError(String errorMessage, int httpCode) {
         if (StringUtils.isBlank(errorMessage)) {
             errorMessage = getString(R.string.error_unexpected_error);
         }

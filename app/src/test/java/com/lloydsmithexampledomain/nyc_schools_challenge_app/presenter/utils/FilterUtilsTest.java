@@ -5,7 +5,7 @@ import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interface
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.LimitTypeOption;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.SearchTypeOption;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.SortByOption;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.activities.BaseTest;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.BaseTest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

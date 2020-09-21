@@ -1,14 +1,12 @@
 package com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.presenters;
 
-//import com.lloydsmithexampledomain.nyc_schools_challenge_app.di.components.DaggerSearchServiceComponent;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.di.components.DaggerSearchServiceComponent;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.interfaces.contracts.ISchoolDataCallback;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.interfaces.contracts.ISchoolDataService;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.services.SchoolDataService;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISATData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchPresenter;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchParams;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchPresenter;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.FilterUtils;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.SearchTypeOption;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.view.interfaces.contracts.IResultsFragmentView;
@@ -40,7 +38,7 @@ public class SearchPresenter implements ISearchPresenter {
 
         @Override
         public void onError(int httpResponseCode, Throwable throwable) {
-            mResultsFragmentView.onSearchError(null, httpResponseCode);
+            mResultsFragmentView.onSchoolSearchError(null, httpResponseCode);
         }
     };
     protected volatile ISchoolDataCallback<ISATData> mSearchForACTDataCallback = new ISchoolDataCallback<ISATData>() {
@@ -59,7 +57,7 @@ public class SearchPresenter implements ISearchPresenter {
                         return;
                     }
                 }
-                mResultsFragmentView.onSearchError(null, httpResponseCode);
+                mResultsFragmentView.onSchoolSearchError(null, httpResponseCode);
                 return;
             }
             processAndDeliverSchoolData(satData);
@@ -67,7 +65,7 @@ public class SearchPresenter implements ISearchPresenter {
 
         @Override
         public void onError(int httpResponseCode, Throwable throwable) {
-            mResultsFragmentView.onSearchError(null, httpResponseCode);
+            mResultsFragmentView.onSchoolSearchError(null, httpResponseCode);
         }
     };
 
@@ -90,7 +88,7 @@ public class SearchPresenter implements ISearchPresenter {
 
     private void processAndDeliverSchoolData(ISATData actDataForDbn) {
         if (actDataForDbn == null) {
-            mResultsFragmentView.onSearchError(null, -1);
+            mResultsFragmentView.onSchoolSearchError(null, -1);
             return;
         }
 
@@ -110,7 +108,7 @@ public class SearchPresenter implements ISearchPresenter {
                 return;
             }
         }
-        mResultsFragmentView.onSearchError(null, 500);
+        mResultsFragmentView.onSchoolSearchError(null, 500);
     }
 
     @Override
@@ -128,7 +126,7 @@ public class SearchPresenter implements ISearchPresenter {
     @Override
     public void searchForACTData(String dbn) {
         if (StringUtils.isBlank(dbn)) {
-            mResultsFragmentView.onSearchError(null, 400);
+            mResultsFragmentView.onSchoolSearchError(null, 400);
             return;
         }
 

@@ -2,6 +2,7 @@ package com.lloydsmithexampledomain.nyc_schools_challenge_app.view.activities;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.BaseTest;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchParams;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.utils.enums.SearchTypeOption;
