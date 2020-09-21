@@ -52,17 +52,23 @@ public final class FilterUtils {
             if (searchParams.getLimitByOption() == null && searchParams.getFilterByOption() == null && resultMaxCount != null) {
                 list.add(schoolData);
             } else {
+                boolean isLimitSuccessful = true;
+                boolean isFilterSuccessful = true;
                 if (searchParams.getLimitByOption() != null) {
                     hasFilters = true;
-                    limitSchoolData(searchParams, list, schoolData);
+                    isLimitSuccessful = limitSchoolData(searchParams, list, schoolData);
                 }
                 if (searchParams.getFilterByOption() != null) {
                     hasFilters = true;
-                    filterSchoolData(searchParams, list, schoolData);
+                    isFilterSuccessful = filterSchoolData(searchParams, list, schoolData);
                 }
 
                 if (!hasFilters) {
                     break;
+                }
+
+                if (isFilterSuccessful && isLimitSuccessful) {
+                    list.add(schoolData);
                 }
             }
         }
@@ -77,67 +83,63 @@ public final class FilterUtils {
         return list;
     }
 
-    private static void limitSchoolData(ISearchParams searchParams, List<ISchoolData> list, ISchoolData schoolData) {
+    private static boolean limitSchoolData(ISearchParams searchParams, List<ISchoolData> list, ISchoolData schoolData) {
         Double graduationRatePercentage = schoolData.getGraduationRatePercentage();
         Integer totalStudents = schoolData.getTotalStudents();
         switch (searchParams.getLimitByOption()) {
             case GRADUATION_RATE_MIN:
                 if (graduationRatePercentage == null) {
-                    return;
+                    return false;
                 }
                 int queryAmountMin = Integer.parseInt(searchParams.getLimitByOptionQuery());
                 double dataMin = Math.floor(graduationRatePercentage * 100);
-                limitSchoolDataByAmount(list, schoolData, dataMin, queryAmountMin, true);
-                break;
+                return limitSchoolDataByAmount(list, schoolData, dataMin, queryAmountMin, true);
             case GRADUATION_RATE_MAX:
                 if (graduationRatePercentage == null) {
-                    return;
+                    return false;
                 }
                 int queryAmountMax = Integer.parseInt(searchParams.getLimitByOptionQuery());
                 double dataMax = Math.floor(graduationRatePercentage * 100);
-                limitSchoolDataByAmount(list, schoolData, dataMax, queryAmountMax, false);
-                break;
+                return limitSchoolDataByAmount(list, schoolData, dataMax, queryAmountMax, false);
             case TOTAL_STUDENTS_MIN:
                 if (totalStudents == null) {
-                    return;
+                    return false;
                 }
                 int totalStudentsQueryAmountMin = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                limitSchoolDataByAmount(list, schoolData, totalStudents, totalStudentsQueryAmountMin, true);
-                break;
+                return limitSchoolDataByAmount(list, schoolData, totalStudents, totalStudentsQueryAmountMin, true);
             case TOTAL_STUDENTS_MAX:
                 if (totalStudents == null) {
-                    return;
+                    return false;
                 }
                 int totalStudentsQueryAmountMax = Integer.parseInt(searchParams.getLimitByOptionQuery());
-                limitSchoolDataByAmount(list, schoolData, totalStudents, totalStudentsQueryAmountMax, false);
-                break;
+                return limitSchoolDataByAmount(list, schoolData, totalStudents, totalStudentsQueryAmountMax, false);
         }
+        return false;
     }
 
-    private static void limitSchoolDataByAmount(List<ISchoolData> list, ISchoolData schoolData, double data, int queryAmount, boolean isMin) {
+    private static boolean limitSchoolDataByAmount(List<ISchoolData> list, ISchoolData schoolData, double data, int queryAmount, boolean isMin) {
         if (isMin) {
             if (data >= queryAmount) {
-                list.add(schoolData);
+                return true;
             }
         } else {
             if (data < queryAmount) {
-                list.add(schoolData);
+                return true;
             }
         }
+        return false;
     }
 
-    private static void filterSchoolData(ISearchParams searchParams, List<ISchoolData> list, ISchoolData schoolData) {
+    private static boolean filterSchoolData(ISearchParams searchParams, List<ISchoolData> list, ISchoolData schoolData) {
         switch (searchParams.getFilterByOption()) {
             case CITY:
-                filterSchoolDataByCity(searchParams, schoolData, list);
-                break;
+                return filterSchoolDataByCity(searchParams, schoolData, list);
             case AVAILABLE_ACADEMICS:
-                filterSchoolDataByAcademics(searchParams, schoolData, list);
-                break;
+                return filterSchoolDataByAcademics(searchParams, schoolData, list);
             case AVAILABLE_SPORTS:
-                filterSchoolDataBySports(searchParams, schoolData, list);
-                break;
+                return filterSchoolDataBySports(searchParams, schoolData, list);
         }
+        return false;
     }
 
     public static boolean sortSchoolData(List<ISchoolData> schoolDataList, SortByOption sortByOption) {
@@ -209,48 +211,53 @@ public final class FilterUtils {
         return true;
     }
 
-    private static void filterSchoolDataByCity(ISearchParams searchParams, ISchoolData schoolData, List<ISchoolData> list) {
+    private static boolean filterSchoolDataByCity(ISearchParams searchParams, ISchoolData schoolData, List<ISchoolData> list) {
         try {
             if (schoolData.getCity().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             }
         } catch (NullPointerException e) {
             Log.e(TAG, "filterSchoolData: CITY", e);
         }
+        return false;
     }
 
-    private static void filterSchoolDataByAcademics(ISearchParams searchParams, ISchoolData schoolData, List<ISchoolData> list) {
+    private static boolean filterSchoolDataByAcademics(ISearchParams searchParams, ISchoolData schoolData, List<ISchoolData> list) {
         try {
             if (schoolData.getAcademicOpportunities1().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             } else if (schoolData.getAcademicOpportunities2().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             } else if (schoolData.getAcademicOpportunities3().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             } else if (schoolData.getAcademicOpportunities4().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             } else if (schoolData.getAcademicOpportunities5().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             }
         } catch (NullPointerException e) {
             Log.e(TAG, "filterSchoolData: AVAILABLE_ACADEMICS", e);
         }
+        return false;
     }
 
-    private static void filterSchoolDataBySports(ISearchParams searchParams,ISchoolData schoolData, List<ISchoolData> list) {
+    private static boolean filterSchoolDataBySports(ISearchParams searchParams,ISchoolData schoolData, List<ISchoolData> list) {
         try {
             if (schoolData.getSchoolSports().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             } else if (schoolData.getSportsBoys().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             } else if (schoolData.getSportsGirls().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
             } else if (schoolData.getSportsCoed().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
-                list.add(schoolData);
+                return true;
+            } else if (schoolData.getSchoolSports().toLowerCase().contains(searchParams.getFilterByOptionQuery().toLowerCase().trim())) {
+                return true;
             }
         } catch (NullPointerException e) {
             Log.e(TAG, "filterSchoolData: AVAILABLE_SPORTS", e);
         }
+        return false;
     }
 
     static boolean isDataForFilterInvalid(List<ISchoolData> schoolDataList, Enum<?>... enumOptions) {
