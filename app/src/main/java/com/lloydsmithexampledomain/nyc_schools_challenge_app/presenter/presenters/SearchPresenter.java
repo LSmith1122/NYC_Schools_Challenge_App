@@ -2,7 +2,7 @@ package com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.presente
 
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.di.components.DaggerSearchServiceComponent;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.interfaces.contracts.ISchoolDataCallback;
-import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.services.SchoolDataService;
+import com.lloydsmithexampledomain.nyc_schools_challenge_app.model.interfaces.contracts.ISchoolDataService;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISATData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISchoolData;
 import com.lloydsmithexampledomain.nyc_schools_challenge_app.presenter.interfaces.contracts.ISearchParams;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 public class SearchPresenter implements ISearchPresenter {
 
     @Inject
-    SchoolDataService mSchoolService;
+    ISchoolDataService mSchoolService;
 
     protected IResultsFragmentView mResultsFragmentView;
     protected ISearchParams mSearchParams;
